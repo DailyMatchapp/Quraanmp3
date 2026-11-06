@@ -1,4 +1,3 @@
-
   <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -10,6 +9,11 @@
     <!-- الخطوط والأيقونات -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- خط مزخرف ملكي للعنوان -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Aref+Ruqaa+Ink:wght@700&family=Reem+Kufi:wght@700&display=swap" rel="stylesheet">
+    
+    
     <!-- مكتبة تقليب الصفحات -->
     <script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js"></script>
     <!-- Privacy-friendly analytics by Plausible -->
@@ -19,13 +23,6 @@
   plausible.init()
 </script>
 
-
-
-
-
-
-
-	
     <style>
         /* --- المتغيرات العامة --- */
         :root {
@@ -44,12 +41,12 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
         
-        body { 
+       body { 
             font-family: 'Cairo', sans-serif; 
             background-color: var(--bg-body); 
             color: var(--text-main); 
-            height: 100vh; 
-            overflow-y: auto;
+            min-height: 100vh; 
+            overflow-x: hidden;
             display: flex; 
             position: relative;
         }
@@ -58,12 +55,15 @@
         .leonardo-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: #000; overflow: hidden;
         }
-        .orb {
-            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.6; animation: floatOrb 20s infinite ease-in-out alternate;
+        
+       .orb {
+            position: absolute; border-radius: 50%; filter: blur(55px); opacity: 0.45; will-change: transform; transform: translateZ(0); animation: floatOrb 22s infinite ease-in-out alternate;
         }
         .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #4c1d95; animation-duration: 25s; }
         .orb-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: #0f766e; animation-duration: 30s; animation-direction: reverse; }
-        .orb-3 { top: 40%; left: 30%; width: 40vw; height: 40vw; background: #be185d; animation-duration: 28s; opacity: 0.4; }
+        .orb-3 { top: 40%; left: 30%; width: 40vw; height: 40vw; background: #be185d; animation-duration: 28s; opacity: 0.35; }
+        
+       
         .orb-4 { bottom: 20%; left: 10%; width: 30vw; height: 30vw; background: #1d4ed8; animation-duration: 35s; }
 
         @keyframes floatOrb {
@@ -82,12 +82,19 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
-        /* --- Sidebar & Layout --- */
+
+
+
+
+/* --- Sidebar & Layout (تصميم القائمة الجديد المطور) --- */
         .sidebar { 
             width: var(--sidebar-width); 
             position: fixed; top: 0; right: 0; height: 100vh; 
-            background: rgba(5, 5, 5, 0.6); backdrop-filter: blur(15px); 
-            border-left: 1px solid var(--border); display: flex; flex-direction: column; 
+            background: rgba(10, 15, 26, 0.85); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border-left: 1px solid var(--border); 
+            display: flex; flex-direction: column; 
             z-index: 1000; transition: var(--transition); 
         }
 
@@ -97,22 +104,141 @@
             .main-container { margin-right: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); }
         }
 
-        .brand { padding: 30px; font-size: 1.5rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; text-shadow: 0 0 15px var(--primary-glow); }
-        .brand .logo { width: 40px; height: 40px; object-fit: cover; border-radius: 8px; margin-left: 10px; }
-        .nav-links { flex: 1; padding: 0 15px; overflow-y: auto; }
-        .nav-item { display: flex; align-items: center; gap: 15px; padding: 14px 20px; margin-bottom: 8px; border-radius: 12px; cursor: pointer; color: var(--text-muted); font-weight: 600; transition: var(--transition); }
-        .nav-item:hover { background: rgba(255,255,255,0.08); color: white; transform: translateX(-5px); box-shadow: 0 0 10px rgba(94, 234, 212, 0.1); }
-        .nav-item.active { background: linear-gradient(90deg, rgba(94, 234, 212, 0.15) 0%, transparent 100%); color: var(--primary); border-right: 3px solid var(--primary); }
+        .brand { 
+            padding: 22px 20px; 
+            font-size: 1.35rem; 
+            font-weight: 800; 
+            color: var(--primary); 
+            display: flex; align-items: center; gap: 12px; 
+            border-bottom: 1px solid var(--border);
+            text-shadow: 0 0 15px var(--primary-glow); 
+        }
+        .brand .logo { width: 38px; height: 38px; object-fit: cover; border-radius: 10px; }
 
-        .sidebar-footer { padding: 20px; border-top: 1px solid var(--border); background: rgba(0,0,0,0.3); font-size: 0.85rem; }
-        .footer-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; justify-content: center; }
-        .footer-link { color: var(--text-muted); text-decoration: none; transition: 0.2s; cursor: pointer; font-size: 0.8rem; }
+        .nav-links { 
+            flex: 1; 
+            padding: 12px 14px; 
+            overflow-y: auto; 
+            display: flex; flex-direction: column; gap: 5px;
+        }
+
+        .nav-item { 
+            display: flex; align-items: center; gap: 14px; 
+            padding: 11px 16px; border-radius: 12px; 
+            cursor: pointer; color: var(--text-muted); 
+            font-weight: 600; font-size: 0.95rem; 
+            transition: var(--transition); 
+        }
+        .nav-item i { font-size: 1.1rem; width: 22px; text-align: center; color: var(--primary); }
+        .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; transform: translateX(-4px); }
+        .nav-item.active { 
+            background: linear-gradient(90deg, rgba(94, 234, 212, 0.18) 0%, rgba(94, 234, 212, 0.03) 100%); 
+            color: #fff; border-right: 3px solid var(--primary); font-weight: 700;
+        }
+
+        /* عنوان القسم داخل القائمة */
+        .sidebar-section-label {
+            font-size: 0.75rem; color: #64748b; font-weight: 700;
+            padding: 12px 10px 4px 10px; text-transform: uppercase;
+        }
+
+        /* بطاقات تحميل التطبيق والاستفسار */
+        .sidebar-action-card {
+            display: flex; align-items: center; gap: 12px;
+            padding: 11px 14px; border-radius: 14px; margin: 4px 0;
+            text-decoration: none; cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: var(--transition);
+        }
+        .sidebar-action-card.app-dl {
+            background: linear-gradient(135deg, rgba(94, 234, 212, 0.14) 0%, rgba(30, 41, 59, 0.5) 100%);
+            border-color: rgba(94, 234, 212, 0.25);
+        }
+        .sidebar-action-card.support {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(30, 41, 59, 0.5) 100%);
+            border-color: rgba(56, 189, 248, 0.25);
+        }
+        
+        
+        /* زر التبرع والدعم */
+.sidebar-action-card.coffee {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.14) 0%, rgba(30, 41, 59, 0.5) 100%);
+    border-color: rgba(245, 158, 11, 0.25);
+}
+
+.coffee .action-card-icon {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b; 
+   }
+        
+        
+        
+        
+        .sidebar-action-card:hover, .sidebar-action-card:active {
+            transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .action-card-icon {
+            width: 36px; height: 36px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; flex-shrink: 0;
+        }
+        .app-dl .action-card-icon { background: rgba(94, 234, 212, 0.2); color: var(--primary); }
+        .support .action-card-icon { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+        .action-card-info { flex: 1; display: flex; flex-direction: column; text-align: right; }
+        .action-card-title { font-size: 0.88rem; font-weight: 700; color: var(--text-main); }
+        .action-card-desc { font-size: 0.72rem; color: var(--text-muted); }
+        .action-card-arrow { font-size: 0.8rem; color: #64748b; }
+
+        /* تذييل القائمة: السوشيال والروابط */
+        .sidebar-footer { 
+            padding: 14px; border-top: 1px solid var(--border); 
+            background: rgba(5, 8, 15, 0.5); text-align: center;
+        }
+        .social-dock { display: flex; justify-content: center; gap: 10px; margin-bottom: 10px; }
+        .social-btn {
+            width: 34px; height: 34px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 0.95rem; text-decoration: none;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: var(--transition);
+        }
+        .social-btn:hover { transform: translateY(-2px); }
+        .social-btn.tg:hover { background: #229ED9; border-color: #229ED9; }
+        .social-btn.wa:hover { background: #25D366; border-color: #25D366; }
+        .social-btn.yt:hover { background: #FF0000; border-color: #FF0000; }
+        .social-btn.fb:hover { background: #1877F2; border-color: #1877F2; }
+
+        .footer-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; justify-content: center; }
+        .footer-link { color: var(--text-muted); text-decoration: none; cursor: pointer; font-size: 0.75rem; }
         .footer-link:hover { color: var(--primary); }
-        .copyright { color: #64748b; font-size: 0.75rem; margin-top: 10px; display: flex; align-items: center; gap: 5px; justify-content: center; }
+        .copyright { color: #64748b; font-size: 0.7rem; display: flex; align-items: center; gap: 5px; justify-content: center; }
+
+
+
+
+
+
+
 
         .main-container { flex: 1; position: relative; display: flex; flex-direction: column; min-height: 100vh; }
         
-        .top-bar { padding: 15px 40px; height: 80px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); z-index: 20; }
+        .top-bar { 
+            position: sticky; 
+            top: 0; 
+            padding: 15px 40px; 
+            height: 80px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: rgba(5, 5, 5, 0.75); /* شفافية خفيفة */
+            backdrop-filter: blur(14px); /* ضبابية زجاجية للمحتوى المار تحته */
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* خط سفلي فاصل وخفيف */
+            z-index: 80; 
+            transition: var(--transition); 
+        }
+        
+        
         .header-left { display: flex; align-items: center; gap: 15px; flex: 1; }
         
         .search-wrapper { position: relative; display: flex; align-items: center; margin-left: auto; }
@@ -122,7 +248,9 @@
         .search-wrapper.expanded .search-input-container { width: 300px; opacity: 1; padding-left: 40px; }
         .search-input { width: 100%; background: transparent; border: none; color: white; padding: 0 15px; font-family: 'Cairo'; height: 100%; }
         .clear-search-btn { background: none; border: none; color: #ef4444; cursor: pointer; padding: 0 10px; display: none; }
-        .top-bar.search-active { background: transparent !important; }
+      
+      
+        .top-bar.search-active { background: rgba(10, 15, 25, 0.88) !important; }
 
         .page-title h2 { font-size: 1.3rem; margin-bottom: 2px; color: var(--text-main); text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         .page-title p { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; margin-top: 0; }
@@ -135,24 +263,11 @@
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
 
         .card { 
-            background-image: linear-gradient(rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)), url('https://www.transparenttextures.com/patterns/arabesque.png');
-            background-size: 300px; background-blend-mode: overlay; backdrop-filter: blur(8px);
-            border-radius: 16px; padding: 20px; border: 1px solid var(--border); cursor: pointer; 
-            transition: var(--transition); position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-          
-           opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: opacity, transform;
-        }
+            background: rgba(18, 25, 38, 0.88); /* استبدال المزج الثقيل بخلفية مباشرة عالية السلاسة */ border-radius: 16px; padding: 20px; border: 1px solid var(--border); cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.2); opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.2s ease; will-change: opacity, transform; }
       
       
       
-      .card.reveal-active {
-    opacity: 1;
-    transform: translateY(0);
-}
+    .card.reveal-active { opacity: 1; transform: translateY(0); }
       
       
         .card:hover { transform: translateY(-0px); border-color: var(--primary); box-shadow: 0 10px 25px rgba(94, 234, 212, 0.15); background-color: rgba(30, 41, 59, 0.7); }
@@ -171,7 +286,7 @@
     text-shadow: 0 2px 8px rgba(0,0,0,0.6); /* ظل خفيف لزيادة البروز */
     word-spacing: 2px;
 }
-        #hadithGrid { grid-template-columns: 1fr !important; }
+       
 
         .card.active-track { border-color: var(--primary); background-image: linear-gradient(145deg, rgba(94, 234, 212, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%), url('https://www.transparenttextures.com/patterns/arabesque.png'); transform: scale(0.98); }
         .card.active-track h3 { color: var(--primary); }
@@ -434,48 +549,65 @@ body.radio-active #durTime {
         backdrop-filter: blur(10px);
     }
 
-    /* 1. زر "تغيير القارئ" - يظهر كزر "رجوع" في الأعلى */
-    .reciter-info-header button {
-        order: 1 !important;
-        background: rgba(255, 255, 255, 0.08) !important;
-        border: 1px solid rgba(94, 234, 212, 0.3) !important;
-        color: var(--primary) !important;
-        padding: 6px 15px !important;
-        font-size: 0.8rem !important;
-        border-radius: 20px !important;
-        font-weight: 600;
+
+
+
+
+
+
+
+
+   /* تنسيق بطاقة ترويسة القارئ والحديث في سطرين مرتبين */
+    .reciter-info-header {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
+        border: 1px solid var(--border) !important;
+        border-right: 4px solid var(--primary) !important;
+        border-radius: 16px !important;
+        padding: 14px 18px !important;
+        margin: 10px 0 20px 0 !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 14px !important;
+        backdrop-filter: blur(12px) !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .reciter-header-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: rgba(94, 234, 212, 0.12);
+        border: 1px solid rgba(94, 234, 212, 0.3);
         display: flex;
         align-items: center;
-        gap: 6px;
-    }
-    /* إضافة أيقونة سهم للزر برمجياً */
-    .reciter-info-header button::before {        
-        font-family: 'Font Awesome 6 Free';
-        font-weight: 900;
-        font-size: 0.7rem;
+        justify-content: center;
+        font-size: 1.4rem;
+        color: var(--primary);
+        flex-shrink: 0;
     }
 
-    /* 2. حاوية الاسم والأيقونة */
-    .reciter-info-header div:first-child {
-        order: 2 !important;
-        display: flex !important;
-        flex-direction: row !important; /* الاسم والأيقونة بجانب بعض */
-        align-items: center !important;
-        gap: 10px !important;
-        width: 100% !important;
+    .reciter-header-details {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        text-align: right;
+        flex: 1;
     }
 
-    .reciter-info-header div:first-child i {
-        color: var(--primary) !important;
-        font-size: 1.3rem !important;
-        filter: drop-shadow(0 0 5px var(--primary-glow));
+    .reciter-header-details h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #ffffff;
+        line-height: 1.3;
     }
 
-    #selectedReciterName {
-        font-size: 1.25rem !important;
-        font-weight: 800 !important;
-        color: #fff !important;
-        letter-spacing: -0.5px;
+    .reciter-header-details .rewaya-tag {
+        font-size: 0.82rem;
+        color: var(--primary);
+        font-weight: 600;
+        opacity: 0.9;
     }
 
    
@@ -569,7 +701,19 @@ body.radio-active #durTime {
             .content-view { padding: 10px 10px 120px 10px; }
             .card { padding: 15px; border-radius: 12px; }
             .card h3 { font-size: 0.95rem; }
-            .top-bar { padding: 10px 15px; height: 70px; }
+           .top-bar { 
+                position: sticky;
+                top: 0;
+                padding: 10px 15px; 
+                height: 70px; 
+                background: rgba(5, 5, 5, 0.78);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+                z-index: 80;
+            }
+            
             .header-left { gap: 10px; }
             .page-title h2 { font-size: 1.1rem; }
             .page-title p { font-size: 0.75rem; display: none; }
@@ -970,82 +1114,194 @@ body.azkar-active #playerMushafBtn,
       
       
       
-      /* تصميم زر تحميل التطبيق في القائمة الجانبية */
-.sidebar-app-download {
-    padding: 15px;
-    margin-top: auto; /* ليدفع الزر إلى أسفل القائمة */
-}
+      
+   /* =======================================================
+   📱 تحسينات الهاتف: الصفحة الرئيسية، زر الرجوع، وقائمة مريحة
+   ======================================================= */
 
-.app-btn-container {
-    background: linear-gradient(135deg, rgba(94, 234, 212, 0.2), rgba(94, 234, 212, 0.05));
-    border: 1px solid var(--primary);
-    border-radius: 15px;
-    padding: 10px;
-    text-align: center;
-    transition: var(--transition);
-    cursor: pointer;
-    box-shadow: 0 0 15px rgba(94, 234, 212, 0.1);
-}
-
-.app-btn-container:hover {
-    background: rgba(94, 234, 212, 0.25);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 20px var(--primary-glow);
-}
-
-.app-btn-container i {
-    font-size: 1.8rem;
+/* 1. زر الرجوع الذكي في الهيدر */
+.header-back-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(94, 234, 212, 0.12);
+    border: 1px solid rgba(94, 234, 212, 0.3);
+    border-radius: 12px;
     color: var(--primary);
-    margin-bottom: 8px;
-    display: block;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+.header-back-btn:active {
+    transform: scale(0.92);
+    background: var(--primary);
+    color: #000;
 }
 
-.app-btn-container span {
-    display: block;
-    font-size: 0.9rem;
-    font-weight: 800;
-    color: var(--text-main);
+/* 2. شبكة كروت الصفحة الرئيسية الشاملة */
+.home-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    padding-top: 10px;
 }
 
-.app-btn-container small {
-    font-size: 0.7rem;
-    color: var(--text-muted);
+@media (min-width: 600px) {
+    .home-dashboard-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+    }
+}
+@media (min-width: 1024px) {
+    .home-dashboard-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
 }
 
-/* تصميم أيقونات التحميل داخل النافذة المنبثقة */
-.download-options {
+.hub-card {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 20px 14px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
 }
 
-.download-link {
+.hub-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--card-color, var(--primary)), transparent);
+    opacity: 0.8;
+}
+
+.hub-card:hover, .hub-card:active {
+    transform: translateY(-3px) scale(0.99);
+    border-color: var(--card-color, var(--primary));
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(94, 234, 212, 0.15);
+}
+
+.hub-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
-    gap: 15px;
-    background: rgba(255,255,255,0.05);
-    padding: 12px 20px;
-    border-radius: 12px;
-    text-decoration: none;
-    color: white;
-    border: 1px solid var(--border);
-    transition: 0.3s;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: var(--card-color, var(--primary));
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.download-link:hover {
-    border-color: var(--primary);
-    background: rgba(94, 234, 212, 0.1);
+.hub-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 4px;
 }
 
-.download-link i {
-    font-size: 1.5rem;
-    color: var(--primary);
+.hub-card p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.4;
 }
+
+/* 3. تحسين القائمة الجانبية في شاشات الهاتف */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 82% !important;
+        max-width: 320px;
+        right: -100%;
+        background: rgba(10, 15, 25, 0.96) !important;
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.7);
+    }
+    
+    .sidebar .brand {
+        padding: 22px 20px 18px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    
+    
+    /* --- تنسيق مزخرف ملكي لعنوان التطبيق Quran Mp3 --- */
+.sidebar .brand span {
+    font-family: 'Cinzel Decorative', 'Aref Ruqaa Ink', 'Amiri', serif !important;
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    
+    /* تدرج لوني ذهبي إسلامي فخم */
+    background: linear-gradient(135deg, #5eead4 0%, #fef08a 50%, #eab308 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* توهج خفيف للبروز */
+    filter: drop-shadow(0 2px 8px rgba(94, 234, 212, 0.4));
+    transition: var(--transition);
+}
+
+.sidebar .brand:hover span {
+    filter: drop-shadow(0 0 12px rgba(254, 240, 138, 0.7));
+    transform: scale(1.02);
+}
+    
+    
+    
+    .sidebar .nav-links {
+        padding: 15px 12px;
+        gap: 6px;
+    }
+    
+    .sidebar .nav-item {
+        padding: 13px 16px;
+        border-radius: 14px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    
+    .sidebar .nav-item i {
+        font-size: 1.15rem;
+        width: 26px;
+        text-align: center;
+        color: var(--primary);
+    }
+    
+    .sidebar .nav-item.active {
+        background: linear-gradient(90deg, rgba(94, 234, 212, 0.2) 0%, rgba(94, 234, 212, 0.04) 100%);
+        border-right: 4px solid var(--primary);
+        color: #fff;
+    }
+}  
+      
+      
+      
     </style> 
 </head>
 <body>
-<div id="mushaf-status" style="position:fixed; top:80px; left:50%; transform:translateX(-50%); background:var(--primary); color:black; padding:5px 15px; border-radius:20px; z-index:9999; display:none;"></div>
+
   
     <div class="leonardo-bg">
         <div class="orb orb-1"></div>
@@ -1055,66 +1311,91 @@ body.azkar-active #playerMushafBtn,
     </div>
     <div class="grid-overlay"></div>
 
-    <aside class="sidebar" id="sidebar">
+
+
+
+<aside class="sidebar" id="sidebar">
+        <!-- ترويسة القائمة: الشعار وزر الإغلاق في الهاتف -->
         <div class="brand">
-           
-            <img class="logo" src="https://i.ibb.co/js36YFR/file-000000006e8871f89ca2d507729992d5.png">
-            <span> Quran Mp3 </span>
-           <i class="fas fa-times sidebar-close-btn" onclick="toggleSidebar()"></i>
+            <img class="logo" src="https://i.ibb.co/js36YFR/file-000000006e8871f89ca2d507729992d5.png" alt="شعار الموقع">
+            <span>Quran Mp3</span>
+            <i class="fas fa-times sidebar-close-btn" onclick="toggleSidebar()"></i>
         </div>
+
+        <!-- قائمة الروابط المرتبة بالكامل -->
         <nav class="nav-links">
+            
+            
+       <div class="sidebar-section-label">  </div>
+                 
+            <!-- 1. الرئيسية والمفضلة أولاً -->
+            <div class="nav-item active" onclick="navigate('home')"><i class="fas fa-home"></i>الصفحة الرئيسية</div>
+            <div class="nav-item" onclick="navigate('favorites')"><i class="fas fa-heart"></i> المفضلة</div>
+
+            
+            
+            
+            
+            
+
+            <div class="sidebar-section-label">تطبيقات ودعم</div>
+
+            <!-- 3. زر / بطاقة تحميل التطبيق للهواتف -->
+            <a href="https://www.mediafire.com/file/95q73wmjca6gt9h/QuranMp3.apk/file" target="_blank" class="sidebar-action-card app-dl" title="تحميل تطبيق الأندرويد">
+                <div class="action-card-icon"><i class="fas fa-mobile-screen-button"></i></div>
+                <div class="action-card-info">
+                    <span class="action-card-title">تحميل التطبيق</span>
+                    <span class="action-card-desc">نسخة الأندرويد مجاناً</span>
+                </div>
+                <i class="fas fa-chevron-left action-card-arrow"></i>
+            </a>
+
+
+
+
+ <a href="https://www.buymeacoffee.com/dailymatch1" target="_blank" class="sidebar-action-card coffee" title="ادعمنا وتبرع لتطوير المنصة"> <div class="action-card-icon"> <i class="fas fa-mug-hot"></i> </div> <div class="action-card-info"> <span class="action-card-title">تبرع لدعم المنصة</span> <span class="action-card-desc">ساهم في استمرار وتطوير العمل</span> </div> <i class="fas fa-chevron-left action-card-arrow"></i> </a>
 
 
 
 
 
-			
-       <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
-    <a href="https://www.buymeacoffee.com/dailymatch1" target="_blank">
-        <img 
-            src="https://i.ibb.co/5XZfyJh8/file-00000000a170820a85f6a7132684daf6.png"
-            alt="ادعمنا لنستمر في المزيد"
-            style="height: 60px; width: 217px;"
-        >
-    </a>
-</div>
-			
-          <div class="nav-item" onclick="navigate('favorites')"><i class="fas fa-heart"></i> المفضلة</div>
-            <div class="nav-item active" onclick="navigate('quran')"><i class="fas fa-headphones-alt"></i> القرآن الكريم </div>
-            <div class="nav-item" onclick="navigate('radio')"><i class="fas fa-radio"></i> الإذاعات</div> 
-            <div class="nav-item" onclick="openMushafOverlay()"><i class="fas fa-book-open"></i> المصحف الشريف</div>
-            <div class="nav-item" onclick="navigate('hadith')"><i class="fas fa-book-reader"></i> الحديث الشريف</div>
-          <!-- أضف هذا السطر مع بقية العناصر في القائمة الجانبية -->
-<div class="nav-item" onclick="navigate('azkar')">
-    <i class="fas fa-shield-halved"></i> حصن المسلم
-</div>
-            <div class="nav-item" onclick="navigate('prayer')"><i class="fas fa-mosque"></i> مواقيت الصلاة</div>
-         <div class="nav-item" onclick="navigate('asma')">
-    <i class="fas fa-star-and-crescent"></i> أسماء الله الحسنى
-</div>
 
 
-
-
-<!-- رابط تحميل التطبيق المباشر -->
-<a href="https://www.mediafire.com/file/95q73wmjca6gt9h/QuranMp3.apk/file" target="_blank" class="sidebar-app-download" style="text-decoration: none;">
-    <div class="app-btn-container">
-        <i class="fas fa-mobile-screen-button"></i>
-        <span>تحميل التطبيق</span>
-        <small>متوفر الآن للأندرويد Apk</small>
-    </div>
-</a>
-
-
+            <!-- 4. بطاقة الاستفسار والمساعدة (تفتح نافذة اتصل بنا مباشرة) -->
+            <div class="sidebar-action-card support" onclick="openModal('contact')" title="راسلنا للاستفسار">
+                <div class="action-card-icon"><i class="fas fa-headset"></i></div>
+                <div class="action-card-info">
+                    <span class="action-card-title">المساعدة والاستفسار</span>
+                    <span class="action-card-desc">تواصل مع فريق الدعم</span>
+                </div>
+                <i class="fas fa-chevron-left action-card-arrow"></i>
+            </div>
+            
+            
+            
         </nav>
         
+        
+        
+        
+        
+        
+        
+        
+        <!-- فوتر القائمة: السوشيال ميديا والروابط والحقوق -->
         <div class="sidebar-footer">
+            <!-- أزرار التواصل الاجتماعي -->
+            <div class="social-dock">
+                <a href="https://t.me/Dailymatch_apk" target="_blank" class="social-btn tg" title="تيليجرام"><i class="fab fa-telegram-plane"></i></a>
+                
+                <a href="https://youtube.com/@dailymatchapk" target="_blank" class="social-btn yt" title="يوتيوب"><i class="fab fa-youtube"></i></a>
+                <a href="https://facebook.com" target="_blank" class="social-btn fb" title="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+            </div>
+
             <div class="footer-links">
                 <a class="footer-link" onclick="openModal('privacy')">سياسة الخصوصية</a>
                 <span style="color:var(--border)">|</span>
                 <a class="footer-link" onclick="openModal('terms')">شروط الاستخدام</a>
-                <span style="color:var(--border)">|</span>
-                <a class="footer-link" onclick="openModal('contact')">اتصل بنا</a>
                 <span style="color:var(--border)">|</span>
                 <a class="footer-link" onclick="openModal('about')">من نحن</a>
             </div>
@@ -1124,14 +1405,28 @@ body.azkar-active #playerMushafBtn,
             </div>
         </div>
     </aside>
+    
+    
+    
+    
+    
+    
+    
 
     <div class="main-container">
+        
+        
+        
         <div class="top-bar">
-            <div class="header-left">
-                <div class="mobile-menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
+           <div class="header-left">
+                <!-- زر القائمة الجانبية -->
+                <div class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
+                <!-- زر الرجوع السريع يظهر عند الدخول للأقسام -->
+                <div class="header-back-btn" id="headerBackBtn" onclick="goBack()" title="رجوع"><i class="fas fa-arrow-right"></i></div>
+                
                 <div class="page-title" id="pageHeader">
-                    <h2>القرآن الكريم</h2>
-                    <p>استمع للقرآن الكريم</p>
+                    <h2>الرئيسية</h2>
+                    <p>بوابة القرآن الكريم والعلوم الإسلامية</p>
                 </div>
             </div>
           
@@ -1154,19 +1449,95 @@ body.azkar-active #playerMushafBtn,
             </div>
         </div>
 
-        <div id="quranView" class="content-view active" onscroll="checkScroll(this)">
-            <div id="quranBreadcrumb" style="display: none;">
-                <div class="reciter-info-header">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <i class="fas fa-user-circle fa-lg"></i>
-                        <span id="selectedReciterName">اسم القارئ</span>
-                        <span style="font-size: 0.8rem; opacity: 0.7; margin-right: 5px;">(الرواية: <span id="selectedRewaya">--</span>)</span>
-                    </div>
-                    <button onclick="resetQuranView()" style="background:none; border:1px solid var(--primary); color:var(--primary); padding:5px 15px; border-radius:20px; cursor:pointer; font-size:0.85rem;">
-                        <i class="fas fa-arrow-right"></i> تغيير القارئ
-                    </button>
+
+
+
+
+
+<!-- الواجهة الرئيسية الشاملة لسهولة الوصول المباشر -->
+        <div id="homeView" class="content-view active" onscroll="checkScroll(this)">
+            <div class="home-dashboard-grid">
+                <!-- بطاقة القرآن الكريم -->
+                <div class="hub-card" style="--card-color: #5eead4;" onclick="navigate('quran')">
+                    <div class="hub-icon-box"><i class="fas fa-headphones-alt"></i></div>
+                    <h3>القرآن الكريم</h3>
+                    <p>استمع لأشهر القراء بروايات متعددة</p>
+                </div>
+
+                <!-- بطاقة المصحف الشريف -->
+                <div class="hub-card" style="--card-color: #38bdf8;" onclick="openMushafOverlay()">
+                    <div class="hub-icon-box"><i class="fas fa-book-open"></i></div>
+                    <h3>المصحف الشريف</h3>
+                    <p>قراءة وتصفح صفحات المصحف كاملاً</p>
+                </div>
+
+                <!-- بطاقة الإذاعات -->
+                <div class="hub-card" style="--card-color: #f59e0b;" onclick="navigate('radio')">
+                    <div class="hub-icon-box"><i class="fas fa-radio"></i></div>
+                    <h3>إذاعات القرآن</h3>
+                    <p>بث مباشر على مدار الساعة</p>
+                </div>
+
+                <!-- بطاقة حصن المسلم -->
+                <div class="hub-card" style="--card-color: #10b981;" onclick="navigate('azkar')">
+                    <div class="hub-icon-box"><i class="fas fa-shield-halved"></i></div>
+                    <h3>حصن المسلم</h3>
+                    <p>أذكار الصباح والمساء وأدعية اليوم</p>
+                </div>
+
+                <!-- بطاقة الحديث الشريف -->
+                <div class="hub-card" style="--card-color: #a855f7;" onclick="navigate('hadith')">
+                    <div class="hub-icon-box"><i class="fas fa-book-reader"></i></div>
+                    <h3>الحديث الشريف</h3>
+                    <p>صحيح البخاري ومسلم وكتب السنة</p>
+                </div>
+
+                <!-- بطاقة مواقيت الصلاة -->
+                <div class="hub-card" style="--card-color: #ec4899;" onclick="navigate('prayer')">
+                    <div class="hub-icon-box"><i class="fas fa-mosque"></i></div>
+                    <h3>مواقيت الصلاة</h3>
+                    <p>أوقات الصلاة والعد التنازلي للأذان</p>
+                </div>
+
+                <!-- بطاقة أسماء الله الحسنى -->
+                <div class="hub-card" style="--card-color: #eab308;" onclick="navigate('asma')">
+                    <div class="hub-icon-box"><i class="fas fa-star-and-crescent"></i></div>
+                    <h3>أسماء الله الحسنى</h3>
+                    <p>استماع وشرح معاني الأسماء الحسنى</p>
+                </div>
+
+                <!-- بطاقة المفضلة -->
+                <div class="hub-card" style="--card-color: #ef4444;" onclick="navigate('favorites')">
+                    <div class="hub-icon-box"><i class="fas fa-heart"></i></div>
+                    <h3>المفضلة</h3>
+                    <p>السور والقراء والإذاعات المحفوظة</p>
                 </div>
             </div>
+        </div>
+
+
+
+
+
+        <div id="quranView" class="content-view" onscroll="checkScroll(this)">
+            
+            
+            <div id="quranBreadcrumb" style="display: none;">
+                <div class="reciter-info-header">
+                    <div class="reciter-header-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="reciter-header-details">
+                        <!-- السطر الأول: اسم القارئ -->
+                        <h3 id="selectedReciterName">اسم القارئ</h3>
+                        <!-- السطر الثاني: الرواية -->
+                        <span class="rewaya-tag"><span id="selectedRewaya">--</span></span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
             
             <div id="quranGrid" class="grid-layout">
                 <div style="text-align: center; grid-column: 1/-1; margin-top: 50px;"><i class="fas fa-circle-notch fa-spin fa-2x" style="color: var(--primary);"></i></div>
@@ -1174,9 +1545,25 @@ body.azkar-active #playerMushafBtn,
         </div>
 
         <div id="hadithView" class="content-view" onscroll="checkScroll(this)">
-            <div id="hadithBreadcrumb" style="margin-bottom: 20px; display: none;">
-                <button onclick="resetHadithView()" style="background:none; border:1px solid var(--border); color:var(--primary); padding:5px 15px; border-radius:20px; cursor:pointer;"><i class="fas fa-arrow-right"></i> الكتب</button>
+            
+            
+            
+            <div id="hadithBreadcrumb" style="display: none;">
+                <div class="reciter-info-header">
+                    <div class="reciter-header-icon">
+                        <i class="fas fa-book-bookmark"></i>
+                    </div>
+                    <div class="reciter-header-details">
+                        <!-- السطر الأول: اسم كتاب الحديث -->
+                        <h3 id="selectedHadithBookName">اسم الكتاب</h3>
+                        <!-- السطر الثاني: تصنيف -->
+                        <span class="rewaya-tag">كتب السنة النبوية الشريفة</span>
+                    </div>
+                </div>
             </div>
+            
+            
+            
             <div id="hadithGrid" class="grid-layout"></div>
  <div id="hadithLoader" style="text-align: center; padding: 20px; display: none;"><i class="fas fa-circle-notch fa-spin" style="color: var(--primary);">
    
@@ -1393,19 +1780,6 @@ body.azkar-active #playerMushafBtn,
             <div id="book"></div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <script>
     document.getElementById("current-year").textContent = new Date().getFullYear();
@@ -2217,9 +2591,12 @@ body.azkar-active #playerMushafBtn,
      
     
     const HADITH_BOOKS = [
-        {id:'bukhari',name:'صحيح البخاري'}, {id:'muslim',name:'صحيح مسلم'},
-        {id:'abudawud',name:'سنن أبي داود'}, {id:'tirmidzi',name:'جامع الترمذي'},
-        {id:'nasai',name:'سنن النسائي'}, {id:'ibnmajah',name:'سنن ابن ماجه'}
+        { id: 'bukhari', name: 'صحيح البخاري', file: 'ara-bukhari' },
+        { id: 'muslim', name: 'صحيح مسلم', file: 'ara-muslim' },
+        { id: 'abudawud', name: 'سنن أبي داود', file: 'ara-abudawud' },
+        { id: 'tirmidzi', name: 'جامع الترمذي', file: 'ara-tirmidhi' },
+        { id: 'nasai', name: 'سنن النسائي', file: 'ara-nasai' },
+        { id: 'ibnmajah', name: 'سنن ابن ماجه', file: 'ara-ibnmajah' }
     ];
 
     const surahsData = SURAH_NAMES.map((name, index) => {
@@ -2347,82 +2724,153 @@ body.azkar-active #playerMushafBtn,
         }
     }
 
-    // === Navigation ===
-function navigate(view, el = null) {
-    // 1. تحديث الحالة النشطة في القائمة الجانبية بشكل آمن
-    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-    
-    // إذا مررنا العنصر مباشرة أو حاولنا إيجاده
-    if (el) {
-        el.classList.add('active');
-    } else {
-        // البحث عن العنصر الذي يحتوي على نفس اسم الصفحة لتفعيله
-        const items = document.querySelectorAll('.nav-item');
-        items.forEach(item => {
-            if (item.getAttribute('onclick') && item.getAttribute('onclick').includes(`'${view}'`)) {
-                item.classList.add('active');
+
+
+
+// === نظام التنقل والرجوع الذكي (Navigation Stack & History) ===
+    let navHistory = ['home'];
+
+    function updateHeaderButtons(view) {
+        const backBtn = document.getElementById('headerBackBtn');
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        
+        // إذا كنا في الصفحة الرئيسية: إخفاء زر الرجوع وإظهار زر القائمة
+        if (view === 'home') {
+            if (backBtn) backBtn.style.display = 'none';
+            if (menuBtn) menuBtn.style.display = '';
+        } else {
+            // إذا كنا في أي قسم داخلي: إظهار زر الرجوع
+            if (backBtn) backBtn.style.display = 'flex';
+        }
+    }
+
+    function navigate(view, el = null, pushHistory = true) {
+        // إدارة تاريخ التنقل لزر الرجوع
+        if (pushHistory) {
+            if (navHistory[navHistory.length - 1] !== view) {
+                navHistory.push(view);
+                window.history.pushState({ view: view }, '', '');
             }
-        });
+        }
+
+        // 1. تحديث الحالة في القائمة الجانبية
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        if (el) {
+            el.classList.add('active');
+        } else {
+            const items = document.querySelectorAll('.nav-item');
+            items.forEach(item => {
+                if (item.getAttribute('onclick') && item.getAttribute('onclick').includes(`'${view}'`)) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // 2. إغلاق القائمة في الهاتف إن كانت مفتوحة
+        const sidebar = document.getElementById('sidebar');
+        if (window.innerWidth <= 768 && sidebar && sidebar.classList.contains('active')) {
+            toggleSidebar();
+        }
+
+        // 3. إخفاء جميع الواجهات
+        document.querySelectorAll('.content-view').forEach(v => v.classList.remove('active'));
+        const mushaf = document.getElementById('mushafOverlay');
+        if (mushaf) mushaf.classList.remove('active');
+
+        // 4. إدارة شريط البحث
+        const searchWrapper = document.getElementById('searchWrapper');
+        const noSearchViews = ['home', 'prayer', 'asma', 'favorites']; 
+        if (searchWrapper) {
+            searchWrapper.style.display = noSearchViews.includes(view) ? 'none' : 'flex';
+        }
+
+        // 5. تفعيل الواجهة المطلوبة وتحديث الترويسة
+        const targetView = document.getElementById(view + 'View');
+        if (targetView) {
+            targetView.classList.add('active');
+            const h = document.getElementById('pageHeader');
+
+            if (view === 'home') {
+                h.innerHTML = '<h2>الرئيسية</h2><p>بوابة القرآن الكريم والعلوم الإسلامية</p>';
+            }
+            else if (view === 'quran') {
+                h.innerHTML = '<h2>القرآن الكريم</h2><p>استمع لأعذب التلاوات</p>';
+                if (typeof resetQuranView === 'function') resetQuranView();
+            } 
+            else if (view === 'hadith') {
+                h.innerHTML = '<h2>الحديث الشريف</h2><p>كتب السنة النبوية</p>';
+                if (typeof resetHadithView === 'function') resetHadithView();
+            } 
+            else if (view === 'radio') {
+                h.innerHTML = '<h2>إذاعات القرآن</h2><p>بث مباشر</p>';
+                initRadios();
+            } 
+            else if (view === 'prayer') {
+                h.innerHTML = '<h2>مواقيت الصلاة</h2><p>كتاباً موقوتاً</p>';
+            } 
+            else if (view === 'asma') {
+                h.innerHTML = '<h2>أسماء الله الحسنى</h2><p>وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا</p>';
+                initAsma();
+            } 
+            else if (view === 'favorites') {
+                h.innerHTML = '<h2>المفضلة</h2><p>ما تم حفظه للوصول السريع</p>';
+                renderFavoritesGrid();
+            } 
+            else if (view === 'azkar') {
+                h.innerHTML = '<h2>حصن المسلم</h2><p>من أذكار الكتاب والسنة</p>';
+                initAzkar();
+            }
+            
+            state.currentView = view;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        updateHeaderButtons(view);
     }
 
-    // 2. إغلاق القائمة الجانبية فوراً في الجوال لتجنب "التعليق"
-    const sidebar = document.getElementById('sidebar');
-    if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
-        toggleSidebar();
-    }
-
-    // 3. إخفاء جميع الواجهات وإغلاق المصحف
-    document.querySelectorAll('.content-view').forEach(v => v.classList.remove('active'));
-    document.getElementById('mushafOverlay').classList.remove('active');
-
-    // 4. إدارة شريط البحث
-    const searchWrapper = document.getElementById('searchWrapper');
-    const noSearchViews = ['prayer', 'asma', 'favorites']; 
-    if (noSearchViews.includes(view)) {
-        searchWrapper.style.display = 'none';
-    } else {
-        searchWrapper.style.display = 'flex';
-    }
-
-    // 5. تفعيل الواجهة المطلوبة وتحديث المحتوى
-    const targetView = document.getElementById(view + 'View');
-    if (targetView) {
-        targetView.classList.add('active');
-        const h = document.getElementById('pageHeader');
-
-        if (view === 'quran') {
-            h.innerHTML = '<h2>القرآن الكريم</h2><p>استمع لأعذب التلاوات</p>';
-            // إعادة ضبط عرض القرآن ليظهر القراء بدلاً من السور إذا كان عالقاً
-            if (typeof resetQuranView === 'function') resetQuranView();
-        } 
-        else if (view === 'hadith') {
-            h.innerHTML = '<h2>الحديث الشريف</h2><p>كتب السنة النبوية</p>';
-            if (typeof resetHadithView === 'function') resetHadithView();
-        } 
-        else if (view === 'radio') {
-            h.innerHTML = '<h2>إذاعات القرآن</h2><p>بث مباشر</p>';
-            initRadios();
-        } 
-        else if (view === 'prayer') {
-            h.innerHTML = '<h2>مواقيت الصلاة</h2><p>كتاباً موقوتاً</p>';
-        } 
-        else if (view === 'asma') {
-            h.innerHTML = '<h2>أسماء الله الحسنى</h2><p>وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا</p>';
-            initAsma();
-        } 
-        else if (view === 'favorites') {
-            h.innerHTML = '<h2>المفضلة</h2><p>ما تم حفظه للوصول السريع</p>';
-            renderFavoritesGrid();
-        } 
-        else if (view === 'azkar') {
-            h.innerHTML = '<h2>حصن المسلم</h2><p>من أذكار الكتاب والسنة</p>';
-            initAzkar();
+    // دالة الرجوع للخلف خطوة بخطوة
+    function goBack() {
+        // إذا كان داخل سور القارئ، يرجع لقائمة القراء أولاً
+        if (state.currentView === 'surahs') {
+            resetQuranView();
+            return;
         }
         
-        state.currentView = view;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // إذا كان داخل أحاديث كتاب معين، يرجع لقائمة الكتب أولاً
+        if (state.currentView === 'hadithList') {
+            resetHadithView();
+            return;
+        }
+
+        // إذا كان المصحف مفتوحاً، يغلقه
+        const mushaf = document.getElementById('mushafOverlay');
+        if (mushaf && mushaf.classList.contains('active')) {
+            closeMushafOverlay();
+            return;
+        }
+
+        // الرجوع للواجهة السابقة
+        if (navHistory.length > 1) {
+            navHistory.pop(); // حذف الصفحة الحالية
+            const prevView = navHistory[navHistory.length - 1];
+            navigate(prevView, null, false);
+        } else {
+            navigate('home', null, false);
+        }
     }
-}
+
+    // دعم زر الرجوع الخاص بالهاتف (Android / iPhone Back Gestures)
+    window.addEventListener('popstate', (e) => {
+        goBack();
+    });
+
+    // تسجيل الصفحة الرئيسية في تاريخ المتصفح عند بدء التشغيل
+    window.addEventListener('DOMContentLoaded', () => {
+        window.history.replaceState({ view: 'home' }, '', '');
+        updateHeaderButtons('home');
+    });
+
+
       
       
       
@@ -2485,6 +2933,12 @@ function navigate(view, el = null) {
 }
 
    function openReciter(r) {
+   
+   
+   window.history.pushState({ view: 'surahs' }, '', '');
+    updateHeaderButtons('surahs');
+   
+   
     // إعداد البيانات
     state.currentReciter = r; 
     
@@ -2498,7 +2952,10 @@ function navigate(view, el = null) {
     // إظهار شريط التنقل العلوي للقارئ
     document.getElementById('quranBreadcrumb').style.display = 'block';
     document.getElementById('selectedReciterName').textContent = r.name;
-    document.getElementById('selectedRewaya').textContent = r.moshaf[0].name;
+   
+   
+   
+    document.getElementById('selectedRewaya').textContent = `الرواية: ${r.moshaf[0].name}`;
 
     // تجهيز قائمة التشغيل
     state.playlist = r.moshaf[0].surah_list.split(',').map(Number);
@@ -2525,67 +2982,202 @@ function navigate(view, el = null) {
         renderReciters(state.reciters); 
         clearSearch(); 
     }
-
-    // === Hadith Logic ===
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+// === Hadith Logic المطور (فائق السرعة مع الذاكرة الفورية) ===
     function initHadithBooks() {
+        state.currentView = 'books'; 
+        
+        // 1. إخفاء أيقونة التحميل فوراً في قائمة الكتب
+        const loader = document.getElementById('hadithLoader');
+        if (loader) loader.style.display = 'none';
+
         const grid = document.getElementById('hadithGrid'); 
+        if (!grid) return;
+        
+        grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(200px, 1fr))';
         grid.innerHTML = '';
+
         HADITH_BOOKS.forEach(b => {
             const d = document.createElement('div'); 
-            d.className = 'card'; 
-            d.innerHTML = `<h3>${b.name}</h3>`; 
+            d.className = 'card reveal-active'; 
+            d.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <i class="fas fa-book-open" style="color:var(--primary); font-size:1.3rem;"></i>
+                    <span style="font-size:0.75rem; color:var(--text-muted); background:rgba(255,255,255,0.05); padding:2px 8px; border-radius:10px;">كتاب حديث</span>
+                </div>
+                <h3 style="font-size:1.15rem; color:#fff; margin-bottom:6px;">${b.name}</h3>
+                <p style="font-size:0.8rem; color:var(--text-muted);">انقر لتصفح الأحاديث الشريفة</p>
+            `; 
             d.onclick = () => openHadithBook(b.id); 
             grid.appendChild(d);
         });
-       applyScrollReveal(); 
     }
 
     function openHadithBook(id) { 
+        window.history.pushState({ view: 'hadithList' }, '', '');
+        updateHeaderButtons('hadithList');
+        
         state.currentView = 'hadithList'; 
-        state.hadithBookId = id; state.hadithPage = 1; state.hadithTotalLoaded = 0; 
-        document.getElementById('hadithBreadcrumb').style.display = 'block'; 
-        document.getElementById('hadithGrid').innerHTML = ''; 
+        state.hadithBookId = id; 
+        state.hadithTotalLoaded = 0; 
+        state.currentHadithsList = []; 
+
+        const bookObj = HADITH_BOOKS.find(b => b.id === id);
+        const nameEl = document.getElementById('selectedHadithBookName');
+        if (nameEl && bookObj) {
+            nameEl.textContent = bookObj.name;
+        }
+
+        const breadcrumb = document.getElementById('hadithBreadcrumb');
+        if (breadcrumb) breadcrumb.style.display = 'block'; 
+
+        const grid = document.getElementById('hadithGrid'); 
+        if (grid) {
+            grid.style.gridTemplateColumns = '1fr';
+            grid.innerHTML = ''; 
+        }
+
         loadMoreHadiths(); 
         scrollToTop(); 
     }
 
-  async function loadMoreHadiths() {
-    if (state.hadithLoading) return;
-    state.hadithLoading = true; 
-    document.getElementById('hadithLoader').style.display = 'block';
-    const start = state.hadithTotalLoaded + 1; const end = start + 19;
-    try {
-        const res = await fetch(`https://api.hadith.gading.dev/books/${state.hadithBookId}?range=${start}-${end}`);
-        const data = await res.json();
-        data.data.hadiths.forEach(h => {
-            const d = document.createElement('div'); d.className = 'card'; d.style.cursor = 'default';
+    // دالة عرض دفعة أحاديث من الذاكرة فوراً وبدون أي بطء (0 ثانية)
+    function renderMoreHadithsBatch() {
+        if (!state.currentHadithsList || state.currentHadithsList.length === 0) return;
+        if (state.hadithTotalLoaded >= state.currentHadithsList.length) return;
+
+        const grid = document.getElementById('hadithGrid');
+        if (!grid) return;
+
+        const batchSize = 25; // عرض 25 حديثاً في كل دفعة
+        const start = state.hadithTotalLoaded;
+        const nextBatch = state.currentHadithsList.slice(start, start + batchSize);
+
+        nextBatch.forEach(h => {
+            const hadithNumber = h.hadithnumber || h.arabicnumber || (state.hadithTotalLoaded + 1);
+            const hadithText = h.text;
+            if (!hadithText || hadithText.trim() === '') return;
+
+            const d = document.createElement('div'); 
+            d.className = 'card reveal-active';
+            d.style.cursor = 'default';
             
-            // تحضير كائن الحديث للحفظ
-            const hadithObj = { number: h.number, text: h.arab, book: state.hadithBookId };
-            const isF = isFav('hadiths', h.arab) ? 'active' : '';
-            // إضافة زر القلب (ملاحظة: stringify للحديث قد يسبب مشاكل مع علامات التنصيص لذا سنعالجها)
-            // استخدام encodeURIComponent للنص العربي لتجنب مشاكل HTML
+            const isF = isFav('hadiths', hadithText) ? 'active' : '';
             
             d.innerHTML = `
-                <div class="fav-btn-card ${isF}" onclick='toggleFav(event, "hadiths", {number:${h.number}, text:${JSON.stringify(h.arab)}})'><i class="fas fa-heart"></i></div>
-                <div style="color:var(--primary); margin-bottom:15px; font-weight:bold; font-size:1.1rem; display:flex; justify-content:space-between; padding-top:10px;"><span><i class="fas fa-bookmark"></i> حديث رقم ${h.number}</span></div>
-                <div class="hadith-text">${h.arab}</div>`;
-            document.getElementById('hadithGrid').appendChild(d);
+                <div class="fav-btn-card ${isF}" onclick='toggleFav(event, "hadiths", {number:${hadithNumber}, text:${JSON.stringify(hadithText)}})'><i class="fas fa-heart"></i></div>
+                <div style="color:var(--primary); margin-bottom:15px; font-weight:bold; font-size:1.1rem; display:flex; justify-content:space-between; padding-top:10px;">
+                    <span><i class="fas fa-bookmark"></i> حديث رقم ${hadithNumber}</span>
+                </div>
+                <div class="hadith-text">${hadithText}</div>`;
+            grid.appendChild(d);
         });
-        state.hadithTotalLoaded += data.data.hadiths.length;
-          applyScrollReveal(); 
-    } catch (e) { console.error(e); } finally { 
-        state.hadithLoading = false; 
-        document.getElementById('hadithLoader').style.display = 'none'; 
+
+        state.hadithTotalLoaded += nextBatch.length;
     }
-    applyScrollReveal(); 
-}
+
+    async function loadMoreHadiths() {
+        if (state.hadithLoading) return;
+        state.hadithLoading = true; 
+        
+        const loader = document.getElementById('hadithLoader');
+        const grid = document.getElementById('hadithGrid');
+        const bookObj = HADITH_BOOKS.find(b => b.id === state.hadithBookId);
+
+        // إنشاء كاش للكتب في الذاكرة إن لم يكن موجوداً
+        if (!state.hadithBooksCache) state.hadithBooksCache = {};
+
+        try {
+            // 1. إذا كان الكتاب محملاً مسبقاً في الذاكرة، افتحه فوراً (0 ثانية)
+            if (state.hadithBooksCache[bookObj.file]) {
+                state.currentHadithsList = state.hadithBooksCache[bookObj.file];
+            } else {
+                // لأول مرة فقط: إظهار رسالة تجهيز الكتاب
+                if (loader) {
+                    loader.innerHTML = '<i class="fas fa-circle-notch fa-spin" style="color: var(--primary);"></i> جاري تجهيز أحاديث الكتاب لأول مرة...';
+                    loader.style.display = 'block';
+                }
+
+                let res;
+                try {
+                    res = await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/${bookObj.file}.min.json`);
+                } catch (netErr) {
+                    res = await fetch(`https://raw.githubusercontent.com/fawazahmed0/hadith-api/1/editions/${bookObj.file}.min.json`);
+                }
+
+                if (!res.ok) throw new Error("تعذر جلب ملف الحديث");
+                const data = await res.json();
+                state.currentHadithsList = data.hadiths || [];
+                // حفظ الكتاب في الذاكرة حتى لا يتم تنزيله مرة أخرى
+                state.hadithBooksCache[bookObj.file] = state.currentHadithsList;
+            }
+
+            // إخفاء اللودر فور تجهيز البيانات
+            if (loader) loader.style.display = 'none';
+
+            // 2. عرض أول دفعة
+            renderMoreHadithsBatch();
+
+        } catch (e) { 
+            console.error("Hadith loading error:", e); 
+            if (state.hadithTotalLoaded === 0 && grid) {
+                grid.innerHTML = `
+                    <div style="text-align:center; padding:40px; color:#ef4444;">
+                        <i class="fas fa-triangle-exclamation fa-2x"></i>
+                        <p style="margin-top:10px; color:#fff;">تعذر تحميل الأحاديث، يرجى التحقق من اتصال الإنترنت</p>
+                        <button onclick="loadMoreHadiths()" style="background:var(--primary); color:#000; border:none; padding:8px 20px; border-radius:20px; font-weight:bold; cursor:pointer; margin-top:12px;">إعادة المحاولة</button>
+                    </div>`;
+            }
+        } finally { 
+            state.hadithLoading = false; 
+            if (loader) loader.style.display = 'none'; 
+        }
+    }
 
     function resetHadithView() { 
         state.currentView = 'books'; 
-        document.getElementById('hadithBreadcrumb').style.display = 'none'; 
+        const breadcrumb = document.getElementById('hadithBreadcrumb');
+        if (breadcrumb) breadcrumb.style.display = 'none'; 
+        
+        // إخفاء أيقونة التحميل عند العودة لقائمة الكتب
+        const loader = document.getElementById('hadithLoader');
+        if (loader) loader.style.display = 'none';
+        
         initHadithBooks(); 
     }
+
+    // مراقب التمرير الذكي لجلب الأحاديث التالية تلقائياً كلما نزلت لأسفل الشاشة
+    window.addEventListener('scroll', () => {
+        if (state.currentView === 'hadithList' && !state.hadithLoading) {
+            const scrollPosition = window.innerHeight + window.scrollY;
+            const pageHeight = document.documentElement.scrollHeight;
+            
+            // إذا اقتربت من أسفل الصفحة بمقدار 500 بكسل -> أظهر الدفعة التالية فوراً
+            if (scrollPosition >= pageHeight - 500) {
+                renderMoreHadithsBatch();
+            }
+        }
+    }, { passive: true });
+
+
 
     // === Radio Logic ===
     async function initRadios() {
@@ -2603,6 +3195,10 @@ function navigate(view, el = null) {
             }
             return false;
         });
+          
+          
+          
+          
           
           
             state.radios = filteredRadios.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
@@ -2737,57 +3333,63 @@ document.addEventListener('click', function(event) {
         } else { if (msg) msg.style.display = 'none'; }
     }
 
-    function handleSearchInput() {
-    const val = document.getElementById('searchInput').value.toLowerCase();
-    document.getElementById('clearSearchBtn').style.display = val ? 'block' : 'none';
 
-    // --- بداية التصحيح: إضافة (|| state.currentView === 'quran') ---
-    if (state.currentView === 'reciters' || state.currentView === 'quran') {
-        const filtered = state.reciters.filter(r => r.name.includes(val));
-        renderReciters(filtered); 
-        updateNoResultsMsg('quranGrid', filtered.length === 0);
-    } 
- 
-    
-    else if (state.currentView === 'surahs') {
-        let hasVisible = false;
-        document.querySelectorAll('#quranGrid .card').forEach(c => {
-            // البحث داخل نص البطاقة (اسم السورة)
-            if (c.innerText.includes(val)) { 
-                c.style.display = 'block'; 
-                hasVisible = true; 
-            } else { 
-                c.style.display = 'none'; 
-            }
-        });
-        updateNoResultsMsg('quranGrid', !hasVisible);
-    } else if (state.currentView === 'radio') {
-        const filtered = state.radios.filter(r => r.name.includes(val));
-        renderRadios(filtered); 
-        updateNoResultsMsg('radioGrid', filtered.length === 0);
-    }  else if (state.currentView === 'azkar') {
-        const filtered = HISN_DATA_STATIC.filter(item => item.TITLE.includes(val));
-        renderAzkarGridItems(filtered);
-        updateNoResultsMsg('azkarGrid', filtered.length === 0);
-    } else if (state.currentView === 'hadithList') {
-        let hasVisible = false;
-        document.querySelectorAll('#hadithGrid .card').forEach(c => {
-            if (c.innerText.includes(val)) { 
-                c.style.display = 'block'; 
-                hasVisible = true; 
-            } else { 
-                c.style.display = 'none'; 
-            }
-        });
-        updateNoResultsMsg('hadithGrid', !hasVisible);
+
+
+
+
+
+function handleSearchInput() {
+        const val = document.getElementById('searchInput').value.trim().toLowerCase();
+        document.getElementById('clearSearchBtn').style.display = val ? 'block' : 'none';
+
+        if (state.currentView === 'reciters' || state.currentView === 'quran') {
+            const filtered = state.reciters.filter(r => r.name.toLowerCase().includes(val));
+            renderReciters(filtered); 
+            updateNoResultsMsg('quranGrid', filtered.length === 0);
+        } 
+        else if (state.currentView === 'surahs') {
+            let hasVisible = false;
+            document.querySelectorAll('#quranGrid .card').forEach(c => {
+                if (c.innerText.toLowerCase().includes(val)) { 
+                    c.style.display = 'block'; 
+                    hasVisible = true; 
+                } else { 
+                    c.style.display = 'none'; 
+                }
+            });
+            updateNoResultsMsg('quranGrid', !hasVisible);
+        } 
+        else if (state.currentView === 'radio') {
+            const filtered = state.radios.filter(r => r.name.toLowerCase().includes(val));
+            renderRadios(filtered); 
+            updateNoResultsMsg('radioGrid', filtered.length === 0);
+        } 
+        else if (state.currentView === 'azkar') {
+            const filtered = HISN_DATA_STATIC.filter(item => item.TITLE.toLowerCase().includes(val));
+            renderAzkarGridItems(filtered);
+            updateNoResultsMsg('azkarGrid', filtered.length === 0);
+        } 
+        else if (state.currentView === 'hadithList') {
+            let hasVisible = false;
+            document.querySelectorAll('#hadithGrid .card').forEach(c => {
+                if (c.innerText.toLowerCase().includes(val)) { 
+                    c.style.display = 'block'; 
+                    hasVisible = true; 
+                } else { 
+                    c.style.display = 'none'; 
+                }
+            });
+            updateNoResultsMsg('hadithGrid', !hasVisible);
+        }
+        applyScrollReveal();
     }
-        // تفعيل البحث في حصن المسلم
-    else if (state.currentView === 'azkar') {
-        const titles = Object.keys(state.azkarData).filter(t => t.includes(val));
-        renderAzkarIndex(titles);
-    }
-      applyScrollReveal();
-}
+
+
+
+
+
+
      
     function clearSearch() { document.getElementById('searchInput').value = ''; handleSearchInput(); }
 
@@ -3173,6 +3775,8 @@ function updatePlayerUI() {
         el.style.display = 'block'; setTimeout(() => el.style.display='none', 2000);
     }
 
+
+
     async function loadMushafBook() {
         const loader = document.getElementById('mushafLoader');
         loader.style.display = 'flex'; // إظهار اللودر الرئيسي في البداية
@@ -3350,26 +3954,358 @@ function updatePlayerUI() {
     document.getElementById('infoModal').addEventListener('click', (e) => { if (e.target === document.getElementById('infoModal')) closeModal(); });
 
 // === بيانات مواقيت الصلاة الموسعة ===
-    const ARAB_COUNTRIES_DATA = {
-        "SA": { name: "السعودية", cities: ["مكة المكرمة", "المدينة المنورة", "الرياض", "جدة", "الدمام", "أبها", "تبوك", "حائل", "بريدة", "جازان", "نجران", "الخبر", "الظهران", "الجبيل", "الطائف", "الهفوف", "ينبع", "عرعر", "سكاكا", "الباحة", "خميس مشيط", "القطيف", "الخرج", "عنيزة", "حفر الباطن"] },
-        "EG": { name: "مصر", cities: ["القاهرة", "الإسكندرية", "الجيزة", "الأقصر", "أسوان", "المنصورة", "شرم الشيخ", "طنطا", "بور سعيد", "السويس", "الإسماعيلية", "أسيوط", "الزقازيق", "الفيوم", "دمياط", "قنا", "بني سويف", "سوهاج", "المنيا", "الغردقة", "مرسى مطروح", "كفر الشيخ", "دمنهور", "المحلة الكبرى", "العريش"] },
-        "AE": { name: "الإمارات", cities: ["أبو ظبي", "دبي", "الشارقة", "عجمان", "رأس الخيمة", "الفجيرة", "العين", "أم القيوين", "خورفكان", "كلباء", "جبل علي", "دبا الحصن", "الذيد"] },
-        "KW": { name: "الكويت", cities: ["مدينة الكويت", "الجهراء", "حولي", "الأحمدي", "الفروانية", "السالمية", "مبارك الكبير", "الفحيحيل", "العبدلي", "الوفرة"] },
-        "QA": { name: "قطر", cities: ["الدوحة", "الريان", "الوكره", "الخور", "أم صلال", "الشمال", "مسيعيد", "لوسيل", "دخان"] },
-        "OM": { name: "عمان", cities: ["مسقط", "صلالة", "صحار", "نزوى", "صور", "البريمي", "الرستاق", "إبراء", "خصب", "عبري", "الدقم", "السيب", "مطرح"] },
-        "BH": { name: "البحرين", cities: ["المنامة", "المحرق", "الرفاع", "مدينة حمد", "مدينة عيسى", "سترة", "البديع", "جد حفص", "الزلاق"] },
-        "JO": { name: "الأردن", cities: ["عمان", "الزرقاء", "إربد", "العقبة", "الكرك", "السلط", "مادبا", "جرش", "معان", "الطفيلة", "المفرق", "عجلون", "الرمثا"] },
-        "DZ": { name: "الجزائر", cities: ["الجزائر العاصمة", "وهران", "قسنطينة", "عنابة", "البليدة", "سطيف", "باتنة", "الجلفة", "سكيكدة", "سيدي بلعباس", "بسكرة", "تلمسان", "بجاية", "ورقلة", "بشار", "تيزي وزو"] },
-        "MA": { name: "المغرب", cities: ["الرباط", "الدار البيضاء", "فاس", "مراكش", "طنجة", "أغادير", "مكناس", "وجدة", "القنيطرة", "تطوان", "آسفي", "المحمدية", "الجديدة", "الناظور", "العيون", "بني ملال", "الرشيدية", "الصويرة"] },
-        "TN": { name: "تونس", cities: ["تونس العاصمة", "صفاقس", "سوسة", "القيروان", "بنزرت", "قابس", "أريانة", "المنستير", "قفصة", "نابل", "مدنين", "توزر", "جربة", "تطاوين", "باجة", "القصرين"] },
-        "IQ": { name: "العراق", cities: ["بغداد", "البصرة", "الموصل", "أربيل", "النجف", "كربلاء", "كركوك", "السليمانية", "الحلة", "الناصرية", "الرمادي", "بعقوبة", "الديوانية", "الكوت", "العمارة", "دهوك", "سامراء", "الفلوجة"] },
-        "LB": { name: "لبنان", cities: ["بيروت", "طرابلس", "صيدا", "صور", "جونيه", "زحلة", "بعلبك", "جبيل", "النبطية", "البترون", "عاليه", "بشري"] },
-        "SY": { name: "سوريا", cities: ["دمشق", "حلب", "حمص", "اللاذقية", "حماة", "طرطوس", "الرقة", "دير الزور", "إدلب", "درعا", "الحسكة", "القامشلي", "السويداء"] },
-        "PS": { name: "فلسطين", cities: ["القدس", "غزة", "رام الله", "نابلس", "الخليل", "بيت لحم", "جنين", "أريحا", "طولكرم", "قلقيلية", "خان يونس", "رفح", "دير البلح", "سلفيت"] },
-        "YE": { name: "اليمن", cities: ["صنعاء", "عدن", "تعز", "الحديدة", "المكلا", "إب", "ذمار", "صعدة", "عتق", "سيئون", "زنجبار", "البيضاء", "حجة"] },
-        "SD": { name: "السودان", cities: ["الخرطوم", "أم درمان", "بورتسودان", "كسلا", "الأبيض", "نيالا", "القضارف", "ود مدني", "الفاشر", "عطبرة", "كوستي", "دنقلا"] },
-        "LY": { name: "ليبيا", cities: ["طرابلس", "بنغازي", "مصراتة", "البيضاء", "طبرق", "الزاوية", "سبها", "سرت", "درنة", "زليتن", "صبراتة", "غريان"] }
-    };
+   const ARAB_COUNTRIES_DATA = {
+    "SA": { 
+        name: "السعودية", 
+        cities: [
+            { ar: "مكة المكرمة", en: "Makkah" },
+            { ar: "المدينة المنورة", en: "Madinah" },
+            { ar: "الرياض", en: "Riyadh" },
+            { ar: "جدة", en: "Jeddah" },
+            { ar: "الدمام", en: "Dammam" },
+            { ar: "أبها", en: "Abha" },
+            { ar: "تبوك", en: "Tabuk" },
+            { ar: "حائل", en: "Hail" },
+            { ar: "بريدة", en: "Buraidah" },
+            { ar: "جازان", en: "Jazan" },
+            { ar: "نجران", en: "Najran" },
+            { ar: "الخبر", en: "Khobar" },
+            { ar: "الظهران", en: "Dhahran" },
+            { ar: "الجبيل", en: "Jubail" },
+            { ar: "الطائف", en: "Taif" },
+            { ar: "الهفوف", en: "Hofuf" },
+            { ar: "ينبع", en: "Yanbu" },
+            { ar: "عرعر", en: "Arar" },
+            { ar: "سكاكا", en: "Sakaka" },
+            { ar: "الباحة", en: "Al Bahah" },
+            { ar: "خميس مشيط", en: "Khamis Mushait" },
+            { ar: "القطيف", en: "Qatif" },
+            { ar: "الخرج", en: "Al Kharj" },
+            { ar: "عنيزة", en: "Onaiza" },
+            { ar: "حفر الباطن", en: "Hafar Al Batin" }
+        ] 
+    },
+    "EG": { 
+        name: "مصر", 
+        cities: [
+            { ar: "القاهرة", en: "Cairo" },
+            { ar: "الإسكندرية", en: "Alexandria" },
+            { ar: "الجيزة", en: "Giza" },
+            { ar: "الأقصر", en: "Luxor" },
+            { ar: "أسوان", en: "Aswan" },
+            { ar: "المنصورة", en: "Mansoura" },
+            { ar: "شرم الشيخ", en: "Sharm El Sheikh" },
+            { ar: "طنطا", en: "Tanta" },
+            { ar: "بور سعيد", en: "Port Said" },
+            { ar: "السويس", en: "Suez" },
+            { ar: "الإسماعيلية", en: "Ismailia" },
+            { ar: "أسيوط", en: "Asyut" },
+            { ar: "الزقازيق", en: "Zagazig" },
+            { ar: "الفيوم", en: "Faiyum" },
+            { ar: "دمياط", en: "Damietta" },
+            { ar: "قنا", en: "Qena" },
+            { ar: "بني سويف", en: "Beni Suef" },
+            { ar: "سوهاج", en: "Sohag" },
+            { ar: "المنيا", en: "Minya" },
+            { ar: "الغردقة", en: "Hurghada" },
+            { ar: "مرسى مطروح", en: "Marsa Matruh" },
+            { ar: "كفر الشيخ", en: "Kafr El Sheikh" },
+            { ar: "دمنهور", en: "Damanhur" },
+            { ar: "المحلة الكبرى", en: "El Mahalla El Kubra" },
+            { ar: "العريش", en: "Arish" }
+        ] 
+    },
+    "AE": { 
+        name: "الإمارات", 
+        cities: [
+            { ar: "أبو ظبي", en: "Abu Dhabi" },
+            { ar: "دبي", en: "Dubai" },
+            { ar: "الشارقة", en: "Sharjah" },
+            { ar: "عجمان", en: "Ajman" },
+            { ar: "رأس الخيمة", en: "Ras Al Khaimah" },
+            { ar: "الفجيرة", en: "Fujairah" },
+            { ar: "العين", en: "Al Ain" },
+            { ar: "أم القيوين", en: "Umm Al Quwain" },
+            { ar: "خورفكان", en: "Khor Fakkan" },
+            { ar: "كلباء", en: "Kalba" },
+            { ar: "جبل علي", en: "Jebel Ali" },
+            { ar: "دبا الحصن", en: "Dibba Al Hisn" },
+            { ar: "الذيد", en: "Dhaid" }
+        ] 
+    },
+    "KW": { 
+        name: "الكويت", 
+        cities: [
+            { ar: "مدينة الكويت", en: "Kuwait City" },
+            { ar: "الجهراء", en: "Al Jahra" },
+            { ar: "حولي", en: "Hawally" },
+            { ar: "الأحمدي", en: "Al Ahmadi" },
+            { ar: "الفروانية", en: "Al Farwaniyah" },
+            { ar: "السالمية", en: "Salmiya" },
+            { ar: "مبارك الكبير", en: "Mubarak Al-Kabeer" },
+            { ar: "الفحيحيل", en: "Fahaheel" },
+            { ar: "العبدلي", en: "Abdali" },
+            { ar: "الوفرة", en: "Wafra" }
+        ] 
+    },
+    "QA": { 
+        name: "قطر", 
+        cities: [
+            { ar: "الدوحة", en: "Doha" },
+            { ar: "الريان", en: "Al Rayyan" },
+            { ar: "الوكره", en: "Al Wakrah" },
+            { ar: "الخور", en: "Al Khor" },
+            { ar: "أم صلال", en: "Umm Salal" },
+            { ar: "الشمال", en: "Madinat ash Shamal" },
+            { ar: "مسيعيد", en: "Mesaieed" },
+            { ar: "لوسيل", en: "Lusail" },
+            { ar: "دخان", en: "Dukhan" }
+        ] 
+    },
+    "OM": { 
+        name: "عمان", 
+        cities: [
+            { ar: "مسقط", en: "Muscat" },
+            { ar: "صلالة", en: "Salalah" },
+            { ar: "صحار", en: "Sohar" },
+            { ar: "نزوى", en: "Nizwa" },
+            { ar: "صور", en: "Sur" },
+            { ar: "البريمي", en: "Al Buraimi" },
+            { ar: "الرستاق", en: "Rustaq" },
+            { ar: "إبراء", en: "Ibra" },
+            { ar: "خصب", en: "Khasab" },
+            { ar: "عبري", en: "Ibri" },
+            { ar: "الدقم", en: "Duqm" },
+            { ar: "السيب", en: "Seeb" },
+            { ar: "مطرح", en: "Muttrah" }
+        ] 
+    },
+    "BH": { 
+        name: "البحرين", 
+        cities: [
+            { ar: "المنامة", en: "Manama" },
+            { ar: "المحرق", en: "Muharraq" },
+            { ar: "الرفاع", en: "Riffa" },
+            { ar: "مدينة حمد", en: "Hamad Town" },
+            { ar: "مدينة عيسى", en: "Isa Town" },
+            { ar: "سترة", en: "Sitra" },
+            { ar: "البديع", en: "Budaiya" },
+            { ar: "جد حفص", en: "Jidhafs" },
+            { ar: "الزلاق", en: "Zallaq" }
+        ] 
+    },
+    "JO": { 
+        name: "الأردن", 
+        cities: [
+            { ar: "عمان", en: "Amman" },
+            { ar: "الزرقاء", en: "Zarqa" },
+            { ar: "إربد", en: "Irbid" },
+            { ar: "العقبة", en: "Aqaba" },
+            { ar: "الكرك", en: "Karak" },
+            { ar: "السلط", en: "Salt" },
+            { ar: "مادبا", en: "Madaba" },
+            { ar: "جرش", en: "Jerash" },
+            { ar: "معان", en: "Ma'an" },
+            { ar: "الطفيلة", en: "Tafilah" },
+            { ar: "المفرق", en: "Mafraq" },
+            { ar: "عجلون", en: "Ajloun" },
+            { ar: "الرمثا", en: "Ar Ramtha" }
+        ] 
+    },
+    "DZ": { 
+        name: "الجزائر", 
+        cities: [
+            { ar: "الجزائر العاصمة", en: "Algiers" },
+            { ar: "وهران", en: "Oran" },
+            { ar: "قسنطينة", en: "Constantine" },
+            { ar: "عنابة", en: "Annaba" },
+            { ar: "البليدة", en: "Blida" },
+            { ar: "سطيف", en: "Setif" },
+            { ar: "باتنة", en: "Batna" },
+            { ar: "الجلفة", en: "Djelfa" },
+            { ar: "سكيكدة", en: "Skikda" },
+            { ar: "سيدي بلعباس", en: "Sidi Bel Abbes" },
+            { ar: "بسكرة", en: "Biskra" },
+            { ar: "تلمسان", en: "Tlemcen" },
+            { ar: "بجاية", en: "Bejaia" },
+            { ar: "ورقلة", en: "Ouargla" },
+            { ar: "بشار", en: "Bechar" },
+            { ar: "تيزي وزو", en: "Tizi Ouzou" }
+        ] 
+    },
+    "MA": { 
+        name: "المغرب", 
+        cities: [
+            { ar: "أكادير", en: "Agadir" },
+            { ar: "الرباط", en: "Rabat" },
+            { ar: "الدار البيضاء", en: "Casablanca" },
+            { ar: "مراكش", en: "Marrakech" },
+            { ar: "فاس", en: "Fes" },
+            { ar: "طنجة", en: "Tangier" },
+            { ar: "مكناس", en: "Meknes" },
+            { ar: "وجدة", en: "Oujda" },
+            { ar: "القنيطرة", en: "Kenitra" },
+            { ar: "تطوان", en: "Tetouan" },
+            { ar: "آسفي", en: "Safi" },
+            { ar: "العيون", en: "Laayoune" },
+            { ar: "الداخلة", en: "Dakhla" },
+            { ar: "الناظور", en: "Nador" },
+            { ar: "بني ملال", en: "Beni Mellal" },
+            { ar: "الجديدة", en: "El Jadida" },
+            { ar: "الصويرة", en: "Essaouira" }
+        ] 
+    },
+    "TN": { 
+        name: "تونس", 
+        cities: [
+            { ar: "تونس العاصمة", en: "Tunis" },
+            { ar: "صفاقس", en: "Sfax" },
+            { ar: "سوسة", en: "Sousse" },
+            { ar: "القيروان", en: "Kairouan" },
+            { ar: "بنزرت", en: "Bizerte" },
+            { ar: "قابس", en: "Gabes" },
+            { ar: "أريانة", en: "Ariana" },
+            { ar: "المنستير", en: "Monastir" },
+            { ar: "قفصة", en: "Gafsa" },
+            { ar: "نابل", en: "Nabeul" },
+            { ar: "مدنين", en: "Medenine" },
+            { ar: "توزر", en: "Tozeur" },
+            { ar: "جربة", en: "Djerba" },
+            { ar: "تطاوين", en: "Tataouine" },
+            { ar: "باجة", en: "Beja" },
+            { ar: "القصرين", en: "Kasserine" }
+        ] 
+    },
+    "IQ": { 
+        name: "العراق", 
+        cities: [
+            { ar: "بغداد", en: "Baghdad" },
+            { ar: "البصرة", en: "Basra" },
+            { ar: "الموصل", en: "Mosul" },
+            { ar: "أربيل", en: "Erbil" },
+            { ar: "النجف", en: "Najaf" },
+            { ar: "كربلاء", en: "Karbala" },
+            { ar: "كركوك", en: "Kirkuk" },
+            { ar: "السليمانية", en: "Sulaymaniyah" },
+            { ar: "الحلة", en: "Hillah" },
+            { ar: "الناصرية", en: "Nasiriyah" },
+            { ar: "الرمادي", en: "Ramadi" },
+            { ar: "بعقوبة", en: "Baqubah" },
+            { ar: "الديوانية", en: "Al Diwaniyah" },
+            { ar: "الكوت", en: "Al Kut" },
+            { ar: "العمارة", en: "Amarah" },
+            { ar: "دهوك", en: "Duhok" },
+            { ar: "سامراء", en: "Samarra" },
+            { ar: "الفلوجة", en: "Fallujah" }
+        ] 
+    },
+    "LB": { 
+        name: "لبنان", 
+        cities: [
+            { ar: "بيروت", en: "Beirut" },
+            { ar: "طرابلس", en: "Tripoli" },
+            { ar: "صيدا", en: "Sidon" },
+            { ar: "صور", en: "Tyre" },
+            { ar: "جونيه", en: "Jounieh" },
+            { ar: "زحلة", en: "Zahle" },
+            { ar: "بعلبك", en: "Baalbek" },
+            { ar: "جبيل", en: "Byblos" },
+            { ar: "النبطية", en: "Nabatieh" },
+            { ar: "البترون", en: "Batroun" },
+            { ar: "عاليه", en: "Aley" },
+            { ar: "بشري", en: "Bsharri" }
+        ] 
+    },
+    "SY": { 
+        name: "سوريا", 
+        cities: [
+            { ar: "دمشق", en: "Damascus" },
+            { ar: "حلب", en: "Aleppo" },
+            { ar: "حمص", en: "Homs" },
+            { ar: "اللاذقية", en: "Latakia" },
+            { ar: "حماة", en: "Hama" },
+            { ar: "طرطوس", en: "Tartus" },
+            { ar: "الرقة", en: "Raqqa" },
+            { ar: "دير الزور", en: "Deir ez-Zor" },
+            { ar: "إدلب", en: "Idlib" },
+            { ar: "درعا", en: "Daraa" },
+            { ar: "الحسكة", en: "Al-Hasakah" },
+            { ar: "القامشلي", en: "Qamishli" },
+            { ar: "السويداء", en: "As-Suwayda" }
+        ] 
+    },
+    "PS": { 
+        name: "فلسطين", 
+        cities: [
+            { ar: "القدس", en: "Jerusalem" },
+            { ar: "غزة", en: "Gaza" },
+            { ar: "رام الله", en: "Ramallah" },
+            { ar: "نابلس", en: "Nablus" },
+            { ar: "الخليل", en: "Hebron" },
+            { ar: "بيت لحم", en: "Bethlehem" },
+            { ar: "جنين", en: "Jenin" },
+            { ar: "أريحا", en: "Jericho" },
+            { ar: "طولكرم", en: "Tulkarm" },
+            { ar: "قلقيلية", en: "Qalqilya" },
+            { ar: "خان يونس", en: "Khan Yunis" },
+            { ar: "رفح", en: "Rafah" },
+            { ar: "دير البلح", en: "Deir al-Balah" },
+            { ar: "سلفيت", en: "Salfit" }
+        ] 
+    },
+    "YE": { 
+        name: "اليمن", 
+        cities: [
+            { ar: "صنعاء", en: "Sanaa" },
+            { ar: "عدن", en: "Aden" },
+            { ar: "تعز", en: "Taiz" },
+            { ar: "الحديدة", en: "Al Hudaydah" },
+            { ar: "المكلا", en: "Mukalla" },
+            { ar: "إب", en: "Ibb" },
+            { ar: "ذمار", en: "Dhamar" },
+            { ar: "صعدة", en: "Saada" },
+            { ar: "عتق", en: "Ataq" },
+            { ar: "سيئون", en: "Sayyan" },
+            { ar: "زنجبار", en: "Zinjibar" },
+            { ar: "البيضاء", en: "Al Bayda" },
+            { ar: "حجة", en: "Hajjah" }
+        ] 
+    },
+    "SD": { 
+        name: "السودان", 
+        cities: [
+            { ar: "الخرطوم", en: "Khartoum" },
+            { ar: "أم درمان", en: "Omdurman" },
+            { ar: "بورتسودان", en: "Port Sudan" },
+            { ar: "كسلا", en: "Kassala" },
+            { ar: "الأبيض", en: "El Obeid" },
+            { ar: "نيالا", en: "Nyala" },
+            { ar: "القضارف", en: "Gedarif" },
+            { ar: "ود مدني", en: "Wad Madani" },
+            { ar: "الفاشر", en: "Al-Fashir" },
+            { ar: "عطبرة", en: "Atbara" },
+            { ar: "كوستي", en: "Kosti" },
+            { ar: "دنقلا", en: "Dongola" }
+        ] 
+    },
+    "LY": { 
+        name: "ليبيا", 
+        cities: [
+            { ar: "طرابلس", en: "Tripoli" },
+            { ar: "بنغازي", en: "Benghazi" },
+            { ar: "مصراتة", en: "Misrata" },
+            { ar: "البيضاء", en: "Bayda" },
+            { ar: "طبرق", en: "Tobruk" },
+            { ar: "الزاوية", en: "Zawiya" },
+            { ar: "سبها", en: "Sabha" },
+            { ar: "سرت", en: "Sirte" },
+            { ar: "درنة", en: "Derna" },
+            { ar: "زليتن", en: "Zliten" },
+            { ar: "صبراتة", en: "Sabratha" },
+            { ar: "غريان", en: "Gharyan" }
+        ] 
+    }
+};
 
     const PRAYER_NAMES_AR = { "Fajr": "الفجر", "Sunrise": "الشروق", "Dhuhr": "الظهر", "Asr": "العصر", "Maghrib": "المغرب", "Isha": "العشاء" };
 
@@ -3401,6 +4337,18 @@ function updatePlayerUI() {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
     function loadCities(defaultCity = null) {
         const countryCode = document.getElementById('countrySelect').value;
         const citySel = document.getElementById('citySelect');
@@ -3409,8 +4357,16 @@ function updatePlayerUI() {
         if (ARAB_COUNTRIES_DATA[countryCode]) {
             ARAB_COUNTRIES_DATA[countryCode].cities.forEach(city => {
                 const opt = document.createElement('option');
-                opt.value = city;
-                opt.innerText = city;
+                // إذا كانت المدينة معرفة بنظام ar/en
+                if (typeof city === 'object') {
+                    opt.value = city.en;       // القيمة المرسلة للسيرفر بالإنجليزية
+                    opt.innerText = city.ar;   // الاسم الظاهر في القائمة بالعربية
+                    opt.dataset.ar = city.ar;
+                } else {
+                    opt.value = city;
+                    opt.innerText = city;
+                    opt.dataset.ar = city;
+                }
                 citySel.appendChild(opt);
             });
             
@@ -3420,37 +4376,74 @@ function updatePlayerUI() {
         }
     }
 
+    // خريطة الطرق الفلكية المعتمدة رسمياً لكل دولة
+    const COUNTRY_CALC_METHODS = {
+        "SA": 4,  // أم القرى - السعودية
+        "EG": 5,  // الهيئة المصرية العامة للمساحة
+        "MA": 21, // وزارة الأوقاف والشؤون الإسلامية - المغرب
+        "AE": 16, // الهيئة العامة للشؤون الإسلامية - الإمارات
+        "KW": 9,  // الكويت
+        "QA": 10, // قطر
+        "TN": 19, // تونس
+        "DZ": 20  // الجزائر
+    };
+
     async function getPrayerTimes(saveToLocal = true) {
         const countryCode = document.getElementById('countrySelect').value;
-        const city = document.getElementById('citySelect').value;
+        const citySel = document.getElementById('citySelect');
+        const cityEn = citySel.value;
+        const selectedOpt = citySel.options[citySel.selectedIndex];
+        const cityAr = selectedOpt ? (selectedOpt.dataset.ar || selectedOpt.innerText) : cityEn;
         
-        if(!countryCode || !city) return;
+        if(!countryCode || !cityEn) return;
 
         if (saveToLocal) {
             localStorage.setItem('atheer_country', countryCode);
-            localStorage.setItem('atheer_city', city);
+            localStorage.setItem('atheer_city', cityEn);
         }
         
-        document.getElementById('locationDisplay').innerText = `${ARAB_COUNTRIES_DATA[countryCode].name} - ${city}`;
+        const locDisplay = document.getElementById('locationDisplay');
+        if (locDisplay && ARAB_COUNTRIES_DATA[countryCode]) {
+            locDisplay.innerText = `${ARAB_COUNTRIES_DATA[countryCode].name} - ${cityAr}`;
+        }
         
-        // التحقق من وجود الحاوية قبل التعديل عليها
         const grid = document.getElementById('prayerGrid');
         if (grid) {
-             grid.innerHTML = '<div style="text-align: center; grid-column: 1/-1; margin-top: 20px;"><i class="fas fa-circle-notch fa-spin fa-2x" style="color: var(--primary);"></i></div>';
+             grid.innerHTML = '<div style="text-align: center; grid-column: 1/-1; margin-top: 30px;"><i class="fas fa-circle-notch fa-spin fa-2x" style="color: var(--primary);"></i><p style="margin-top:10px; color:var(--text-muted); font-size:0.9rem;">جاري ضبط التوقيت المعتمد رسمياً...</p></div>';
         }
 
+        // اختيار طريقة الحساب المناسبة للدولة تلقائياً
+        const method = COUNTRY_CALC_METHODS[countryCode] || 3;
+
         try {
-            const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${countryCode}&method=4`);
+            // إرسال اسم المدينة بالإنجليزية لضمان تحديد خط الطول والعرض بدقة، مع طلب التوقيت المحلي للدولة
+            const apiUrl = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(cityEn)}&country=${encodeURIComponent(countryCode)}&method=${method}`;
+            const res = await fetch(apiUrl);
+            if (!res.ok) throw new Error("HTTP error " + res.status);
             const data = await res.json();
             
-            if(data.code === 200) {
+            if(data.code === 200 && data.data) {
                 renderPrayerUI(data.data);
+            } else {
+                throw new Error("بيانات غير صالحة");
             }
         } catch (e) {
             console.error("Error fetching prayers:", e);
-            if(grid) grid.innerHTML = '<p style="text-align:center; color:#ef4444;">حدث خطأ في الاتصال، يرجى التحقق من الإنترنت</p>';
+            if(grid) {
+                grid.innerHTML = `
+                    <div style="text-align:center; padding:30px; grid-column:1/-1; color:#ef4444;">
+                        <i class="fas fa-exclamation-triangle fa-2x"></i>
+                        <p style="margin-top:10px; color:#fff;">تعذر جلب المواقيت، يرجى إعادة المحاولة</p>
+                        <button onclick="getPrayerTimes(false)" style="background:var(--primary); color:#000; border:none; padding:7px 18px; border-radius:15px; font-weight:bold; cursor:pointer; margin-top:10px;">إعادة المحاولة</button>
+                    </div>`;
+            }
         }
     }
+
+
+
+
+
 
     function formatTime12(timeStr) {
         let [h, m] = timeStr.split(':').map(Number);
@@ -3504,54 +4497,77 @@ function updatePlayerUI() {
         startCountdown(timings);
     }
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
     function startCountdown(timings) {
         if (prayerInterval) clearInterval(prayerInterval);
         
-        const prayersForCountdown = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+        // الصلوات الخمس المفروضة فقط للعد التنازلي (باستثناء الشروق)
+        const prayersForCountdown = [
+            { key: "Fajr", name: "الفجر" },
+            { key: "Dhuhr", name: "الظهر" },
+            { key: "Asr", name: "العصر" },
+            { key: "Maghrib", name: "المغرب" },
+            { key: "Isha", name: "العشاء" }
+        ];
         
         function updateTimer() {
             const now = new Date();
-            let nextPrayerName = null;
-            let nextPrayerDate = null;
+            let nextPrayer = null;
+            let targetDate = null;
 
-            for (let key of prayersForCountdown) {
-                const [h, m] = timings[key].split(':').map(Number);
+            // 1. البحث عن الصلاة القادمة خلال اليوم الحالي
+            for (let p of prayersForCountdown) {
+                if (!timings[p.key]) continue;
+                const [h, m] = timings[p.key].split(':').map(Number);
                 const pDate = new Date();
                 pDate.setHours(h, m, 0, 0);
                 
                 if (pDate > now) {
-                    nextPrayerName = key;
-                    nextPrayerDate = pDate;
+                    nextPrayer = p;
+                    targetDate = pDate;
                     break;
                 }
             }
 
-            if (!nextPrayerDate) {
-                nextPrayerName = "Fajr";
+            // 2. إذا انتهت صلاة العشاء، فالصلاة القادمة هي فجر اليوم التالي
+            if (!nextPrayer) {
+                nextPrayer = prayersForCountdown[0]; // الفجر
                 const [h, m] = timings["Fajr"].split(':').map(Number);
-                nextPrayerDate = new Date();
-                nextPrayerDate.setDate(nextPrayerDate.getDate() + 1);
-                nextPrayerDate.setHours(h, m, 0, 0);
+                targetDate = new Date();
+                targetDate.setDate(targetDate.getDate() + 1); // الغد
+                targetDate.setHours(h, m, 0, 0);
             }
 
+            // تحديث اسم الصلاة في الشاشة
             const nameEl = document.getElementById('nextPrayerName');
             const timerEl = document.getElementById('countdownTimer');
             
-            if(nameEl) nameEl.innerText = PRAYER_NAMES_AR[nextPrayerName];
+            if(nameEl) nameEl.innerText = nextPrayer.name;
 
+            // تمييز كرت الصلاة القادمة بلون الإضاءة المتوهج
             document.querySelectorAll('.prayer-card-item').forEach(c => c.classList.remove('active-prayer'));
-            const activeCard = document.querySelector(`.prayer-card-item[data-key="${nextPrayerName}"]`);
+            const activeCard = document.querySelector(`.prayer-card-item[data-key="${nextPrayer.key}"]`);
             if(activeCard) activeCard.classList.add('active-prayer');
 
-            const diff = nextPrayerDate - now;
-            
+            // حساب الفرق الزمني بالثواني
+            const diff = targetDate - now;
             if (diff < 0) return;
 
-            const h = Math.floor((diff / (1000 * 60 * 60)));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
+            const hours = Math.floor((diff / (1000 * 60 * 60)));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            if(timerEl) timerEl.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            if(timerEl) {
+                timerEl.innerText = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+            }
         }
 
         updateTimer();
@@ -3956,7 +4972,12 @@ function initAzkar() {
       
       
       
-   function playAzkarAudio(item, index) {
+      
+      
+      
+      
+      
+ function playAzkarAudio(item, index) {
     activatePlayerUI();
     state.isRadioMode = false;
     state.isAzkarMode = true; 
@@ -3973,33 +4994,21 @@ function initAzkar() {
     // تفعيل التلوين فوراً
     highlightActiveCard('azkarGrid', index);
     
-    // إعداد وتشغيل الصوت
-    let audioUrl = item.AUDIO_URL.replace('http://', 'https://');
-    audio.src = audioUrl;
+    const safeAudioUrl = item.AUDIO_URL.replace(/^http:\/\//i, 'https://');
+    audio.src = safeAudioUrl;
     audio.play().then(() => {
         state.isPlaying = true;
         updatePlayerUI();
-    }).catch(e => {
-        audio.src = item.AUDIO_URL; // محاولة أخيرة بالرابط الأصلي
-        audio.play();
+    }).catch(err => {
+        console.warn("Retrying playback...", err);
+        audio.src = item.AUDIO_URL;
+        audio.play().catch(e => console.error("Play error:", e));
     });
 
     restorePlayer();
 }
-      
-      
-      
-      
-      
 
-      
-      
-      
-      
-      
-      
-      
-      function downloadCurrentTrack() {
+function downloadCurrentTrack() {
     // 1. التحقق من وجود ملف صوتي
     if (state.isRadioMode || !audio.src || audio.src === "") {
         showMushafToast("لا يمكن تحميل البث المباشر");
@@ -4018,21 +5027,14 @@ function initAzkar() {
     downloadBtn.innerHTML = '<i class="fas fa-check"></i>';
     showMushafToast("...جاري فتح رابط التحميل");
 
-    // الطريقة الأضمن: إنشاء رابط بصيغة تطلب من المتصفح التحميل
     const link = document.createElement('a');
     link.href = audioUrl;
-    
-    // محاولة إجبار المتصفح على التحميل (تعمل في بعض المتصفحات)
     link.setAttribute('download', `${surahName} - ${reciterName}.mp3`);
-    
-    // فتح في نافذة جديدة لضمان عدم توقف الموقع
     link.target = '_blank';
     
-    // إضافة الرابط للمستند وتنفيذ النقرة
     document.body.appendChild(link);
     link.click();
     
-    // إزالة الرابط بعد التنفيذ
     setTimeout(() => {
         document.body.removeChild(link);
         downloadBtn.innerHTML = originalIcon;
@@ -4074,29 +5076,25 @@ function initAzkar() {
       
       
       
-      // إنشاء مراقب الظهور
-const scrollObserver = new IntersectionObserver((entries) => {
+     const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('reveal-active');
-            scrollObserver.unobserve(entry.target);
+            scrollObserver.unobserve(entry.target); // إزالة العنصر من المراقبة فور ظهوره لتوفير الذاكرة
         }
     });
 }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px' 
+    threshold: 0.05,
+    rootMargin: '30px' 
 });
 
-// دالة لتفعيل المراقب على كل البطاقات الموجودة حالياً
 function applyScrollReveal() {   
-    setTimeout(() => {
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            scrollObserver.observe(card);
-        });
-    }, 50); 
+    requestAnimationFrame(() => {
+        // فحص فقط البطاقات الجديدة التي لم تظهر بعد
+        const cards = document.querySelectorAll('.card:not(.reveal-active)');
+        cards.forEach(card => scrollObserver.observe(card));
+    });
 }
-      
       
       
       
@@ -4185,19 +5183,6 @@ window.addEventListener('online', () => {
         wasPlayingBeforeDisconnect = false;
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
     </script>
 </body>
 </html>
