@@ -655,7 +655,31 @@ body.radio-active #durTime {
         .page-content img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 2px rgba(0,0,0,0.1)); display: block; }
         .click-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; display: flex; }
         .click-zone { width: 50%; height: 100%; cursor: pointer; }
-        .mushaf-select { background-color: var(--bg-card); color: var(--text-main); border: 1px solid var(--border); padding: 0 10px; height: 35px; border-radius: 8px; font-size: 0.85rem; outline: none; cursor: pointer; }
+        
+        
+        .mushaf-select { 
+    background-color: var(--bg-card); 
+    color: var(--text-main); 
+    border: 1px solid var(--border); 
+    padding: 0 10px; 
+    height: 35px; 
+    border-radius: 8px; 
+    font-size: 0.85rem; 
+    outline: none; 
+    cursor: pointer;
+    direction: rtl !important;
+    text-align: right !important;
+    text-align-last: right !important; /* لضمان بقاء النص على اليمين داخل الزر في هواتف أندرويد */
+}
+
+.mushaf-select option {
+    direction: rtl !important;
+    text-align: right !important;
+    background-color: #0f172a;
+    color: #ffffff;
+}
+        
+        
         .mushaf-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); height: 35px; width: 35px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .mushaf-btn.danger { color: #ef4444; border-color: rgba(239, 68, 68, 0.3); }
         .no-results-msg { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; color: var(--text-muted); text-align: center; animation: fadeIn 0.3s ease; }
@@ -686,9 +710,28 @@ body.radio-active #durTime {
         @media (min-width: 1200px) { .page-content { padding: 40px 90px; } }
         @media (min-width: 1600px) { .page-content { padding: 60px 140px; } }
         
-        /* --- تعديل صورة الغلاف --- */
-        .page-content.cover-page { padding: 10px !important; background: transparent; border: none; box-shadow: none; display: flex; align-items: center; justify-content: center; }
-        .page-content.cover-page img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); border-radius: 5px; }
+        /* --- تعديل صورة الغلاف --- */       
+        .page-content.cover-page { 
+            padding: 0 !important; 
+            background: transparent; 
+            border: none; 
+            box-shadow: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .page-content.cover-page img { 
+            width: 100% !important; 
+            height: 100% !important; 
+            object-fit: fill !important; /* ملء كامل الطول والعرض ليطابق إطار الصفحات */
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); 
+            border-radius: 0; 
+            display: block;
+        }
 
         /* --- تحسينات الموبايل --- */
         @media (max-width: 768px) {
@@ -1397,6 +1440,108 @@ body.azkar-active #playerMushafBtn,
     box-shadow: 0 0 15px var(--primary-glow);
 } 
       
+      
+      
+      
+      
+      
+      /* --- تلميح تقليب صفحات المصحف للمرة الأولى --- */
+.mushaf-hint-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: none; /* يظهر بالجافاسكربت */
+    align-items: center;
+    justify-content: center;
+    z-index: 2050;
+    animation: fadeIn 0.4s ease;
+}
+
+.mushaf-hint-card {
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 35px rgba(94, 234, 212, 0.25);
+    border-radius: 24px;
+    padding: 30px 20px;
+    text-align: center;
+    max-width: 360px;
+    width: 90%;
+    color: #ffffff;
+}
+
+.hint-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 0;
+    padding: 0 10px;
+}
+
+.hint-side-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.hint-side-box i {
+    font-size: 1.6rem;
+}
+
+.hint-anim-r { animation: hintBounceR 1.2s infinite alternate ease-in-out; }
+.hint-anim-l { animation: hintBounceL 1.2s infinite alternate ease-in-out; }
+
+@keyframes hintBounceR {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-8px); }
+}
+@keyframes hintBounceL {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(8px); }
+}
+
+.hint-hand-icon {
+    font-size: 2.2rem;
+    color: #f8fafc;
+    animation: hintTap 1.2s infinite ease-in-out;
+}
+
+@keyframes hintTap {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.18); opacity: 1; color: var(--primary); }
+}
+
+.hint-text {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    line-height: 1.7;
+    margin-bottom: 22px;
+}
+
+.hint-btn {
+    background: var(--primary);
+    color: #000;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    box-shadow: 0 0 15px var(--primary-glow);
+    transition: var(--transition);
+}
+
+.hint-btn:active {
+    transform: scale(0.95);
+}
+      
+      
     </style> 
 </head>
 <body>
@@ -1838,6 +1983,33 @@ body.azkar-active #playerMushafBtn,
 
     <!-- Mushaf Overlay -->
     <div id="mushafOverlay" class="mushaf-overlay">
+        
+        <!-- بطاقة توجيه المستخدم لأول مرة -->
+        <div id="mushafHintOverlay" class="mushaf-hint-overlay" onclick="closeMushafHint()">
+            <div class="mushaf-hint-card" onclick="event.stopPropagation()">
+                <h3 style="color:var(--primary); font-size:1.2rem; margin-bottom:10px;"><i class="fas fa-book-open"></i> طريقة تمرير صفحات الكتاب</h3>
+                
+                <div class="hint-actions-row">
+                    <div class="hint-side-box">
+                        <i class="fas fa-chevron-right hint-anim-r"></i>
+                        <span>السابق</span>
+                    </div>
+
+                    <div class="hint-hand-icon">
+                        <i class="fas fa-hand-pointer"></i>
+                    </div>
+
+                    <div class="hint-side-box">
+                        <i class="fas fa-chevron-left hint-anim-l"></i>
+                        <span>التالي</span>
+                    </div>
+                </div>
+
+                <p class="hint-text">انقر على طرف الشاشة الأيمن أو الأيسر، لتقليب الصفحات.</p>
+                <button class="hint-btn" onclick="closeMushafHint()">حسناً، فهمت</button>
+            </div>
+        </div>
+        
         <div id="mushafLoader" class="mushaf-loader">
             <i class="fas fa-circle-notch fa-spin"></i>
             <p>جاري تحميل المصحف...</p>
@@ -1848,11 +2020,15 @@ body.azkar-active #playerMushafBtn,
         <div class="mushaf-navbar" id="mushafNavbar">
             <div style="display:flex; align-items:center; gap:10px;">
                 <button class="mushaf-btn danger" onclick="closeMushafOverlay()"><i class="fas fa-times"></i></button>
-                <div class="mushaf-select-group" style="display:flex; gap:5px;">
-                    <select id="surahSelect" class="mushaf-select"><option value="" disabled selected>السورة</option></select>
-                    <select id="juzSelect" class="mushaf-select"><option value="" disabled selected>الجزء</option></select>
-                   <select id="hizbSelect" class="mushaf-select"><option value="" disabled selected>الحزب</option></select>
-                </div>
+                
+                
+                <div class="mushaf-select-group" style="display:flex; gap:5px;" dir="rtl">
+    <select id="surahSelect" class="mushaf-select" dir="rtl"><option value="" disabled selected>السورة</option></select>
+    <select id="juzSelect" class="mushaf-select" dir="rtl"><option value="" disabled selected>الجزء</option></select>
+    <select id="hizbSelect" class="mushaf-select" dir="rtl"><option value="" disabled selected>الحزب</option></select>
+</div>
+                
+                
             </div>
             <div style="display:flex; align-items:center; gap:10px;">
                 <button class="mushaf-btn" id="mushafFullscreenBtn"><i class="fas fa-expand"></i></button>
@@ -3926,17 +4102,48 @@ audio.addEventListener('error', (e) => {
         }
     }
 
-   async function openMushafOverlay() {
-        // --- بداية التصحيح ---
-        // نتحقق أولاً: هل القائمة الجانبية مفتوحة؟ (تحتوي على كلاس active)
+
+
+
+
+
+
+
+
+  async function openMushafOverlay() {
         const sidebar = document.getElementById('sidebar');
-        if(window.innerWidth <= 768 && sidebar.classList.contains('active')) {
-            toggleSidebar(); // نغلقها فقط إذا كانت مفتوحة
+        if(window.innerWidth <= 768 && sidebar && sidebar.classList.contains('active')) {
+            toggleSidebar();
         }
-        // --- نهاية التصحيح ---
 
         document.getElementById('mushafOverlay').classList.add('active');
-        if (!state.mushafLoaded) { await loadMushafBook(); state.mushafLoaded = true; }
+        if (!state.mushafLoaded) { 
+            await loadMushafBook(); 
+            state.mushafLoaded = true; 
+        }
+
+        // فحص هل شاهد المستخدم التلميح من قبل
+        checkMushafFirstTimeHint();
+    }
+
+    // فحص إظهار التلميح لأول مرة فقط
+    function checkMushafFirstTimeHint() {
+        const hintSeen = localStorage.getItem('atheer_mushaf_hint_seen');
+        if (!hintSeen) {
+            setTimeout(() => {
+                const hintOverlay = document.getElementById('mushafHintOverlay');
+                if (hintOverlay) hintOverlay.style.display = 'flex';
+            }, 600); // إظهاره بعد هدوء الشاشة بنصف ثانية
+        }
+    }
+
+    // إغلاق التلميح وحفظ الحالة لعدم إظهاره ثانية
+    function closeMushafHint() {
+        const hintOverlay = document.getElementById('mushafHintOverlay');
+        if (hintOverlay) {
+            hintOverlay.style.display = 'none';
+        }
+        localStorage.setItem('atheer_mushaf_hint_seen', 'true');
     }
 
     function closeMushafOverlay() { 
@@ -3953,61 +4160,56 @@ audio.addEventListener('error', (e) => {
 
     async function loadMushafBook() {
         const loader = document.getElementById('mushafLoader');
-        loader.style.display = 'flex'; // إظهار اللودر الرئيسي في البداية
+        if (loader) loader.style.display = 'flex';
 
         try {
-            // استخدام بروكسي لتفادي مشاكل CORS
-            const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent("https://quran.yousefheiba.com/api/quranPagesImage");
-            const res = await fetch(proxyUrl);
-            const data = await res.json();
-            
-            if(data.status === "success" && data.pages) {
-                let pages = data.pages.sort((a,b) => a.page_number - b.page_number);
-                
-                // دالة صغيرة يتم استدعاؤها عند اكتمال تحميل الصورة
-                // تقوم بإظهار الصورة وإخفاء اللودر الذي يسبقها
-                const onImgLoad = "this.style.opacity='1'; this.previousElementSibling.style.display='none';";
-
-                // صفحة الغلاف مع اللودر الخاص بها
-                const cover = `
-                    <div class="page-content cover-page">
-                        <div class="single-page-loader"><i class="fas fa-circle-notch fa-spin"></i></div>
-                        <img src="https://i.ibb.co/DPjbKVm2/1f762ea15eee0b1b9c8a74501a53c197.png" alt="Cover" onload="${onImgLoad}">
-                    </div>`;
-
-                // باقي الصفحات مع اللودر الخاص بكل صفحة
-                const pageDivs = pages.map(p => `
-                    <div class="page-content">
-                        <div class="single-page-loader"><i class="fas fa-circle-notch fa-spin"></i></div>
-                        <img src="${p.page_url}" loading="lazy" alt="${p.page_number}" onload="${onImgLoad}">
-                    </div>
-                `).join('');
-
-                document.getElementById('book').innerHTML = cover + pageDivs;
-
-                const isMobile = window.innerWidth < 768;
-                state.pageFlipInstance = new St.PageFlip(document.getElementById('book'), {
-                    width: 450, height: 750, size: "stretch", 
-                    minWidth: 300, maxWidth: 1000, minHeight: 400, maxHeight: 1200, 
-                    showCover: true, usePortrait: isMobile, maxShadowOpacity: 0.5
+            // توليد روابط جميع صفحات المصحف الـ 604 مباشرة بدون الاعتماد على سيرفرات وسيطة متعطلة
+            let pages = [];
+            for (let i = 1; i <= 604; i++) {
+                const pageNumber = String(i).padStart(3, '0');
+                pages.push({
+                    page_number: i,
+                    page_url: `https://quran.islam-db.com/data/pages/quranpages_1024/images/page${pageNumber}.png`
                 });
-                
-                state.pageFlipInstance.loadFromHTML(document.querySelectorAll('.page-content'));
-                
-                state.pageFlipInstance.on('flip', (e) => { 
-                    syncDropdowns(e.data); 
-           
-           
-           
-                    localStorage.setItem('last_quran_page', e.data); 
-                });
-                
-                // الانتقال للصفحة المحفوظة
-                const saved = localStorage.getItem('last_quran_page');
-                if(saved) setTimeout(() => { state.pageFlipInstance.flip(parseInt(saved)); }, 500);
             }
-        
-        
+
+            const onImgLoad = "this.style.opacity='1'; if(this.previousElementSibling) this.previousElementSibling.style.display='none';";
+
+            // صفحة الغلاف
+            const cover = `
+                <div class="page-content cover-page">
+                    <div class="single-page-loader"><i class="fas fa-circle-notch fa-spin"></i></div>
+                    <img src="https://i.ibb.co/DPjbKVm2/1f762ea15eee0b1b9c8a74501a53c197.png" alt="Cover" onload="${onImgLoad}">
+                </div>`;
+
+            // توليد الصفحات من 1 إلى 604
+            const pageDivs = pages.map(p => `
+                <div class="page-content">
+                    <div class="single-page-loader"><i class="fas fa-circle-notch fa-spin"></i></div>
+                    <img src="${p.page_url}" loading="lazy" alt="${p.page_number}" onload="${onImgLoad}">
+                </div>
+            `).join('');
+
+            document.getElementById('book').innerHTML = cover + pageDivs;
+
+            const isMobile = window.innerWidth < 768;
+            state.pageFlipInstance = new St.PageFlip(document.getElementById('book'), {
+                width: 450, height: 750, size: "stretch", 
+                minWidth: 300, maxWidth: 1000, minHeight: 400, maxHeight: 1200, 
+                showCover: true, usePortrait: isMobile, maxShadowOpacity: 0.5
+            });
+            
+            state.pageFlipInstance.loadFromHTML(document.querySelectorAll('.page-content'));
+            
+            state.pageFlipInstance.on('flip', (e) => { 
+                syncDropdowns(e.data); 
+                localStorage.setItem('last_quran_page', e.data); 
+            });
+            
+            // الانتقال لآخر صفحة كانت مفتوحة
+            const saved = localStorage.getItem('last_quran_page');
+            if (saved) setTimeout(() => { state.pageFlipInstance.flip(parseInt(saved)); }, 500);
+
         } catch(e) { 
             console.error(e);
             const bookEl = document.getElementById('book');
@@ -4015,19 +4217,19 @@ audio.addEventListener('error', (e) => {
                 renderAppError(bookEl, {
                     icon: 'fa-book-quran',
                     title: 'تعذر تحميل صفحات المصحف الشريف',
-                    desc: ' تفقد اتصالك الإنترنت.',
+                    desc: 'يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.',
                     retryFn: 'loadMushafBook()',
                     btnText: 'إعادة تحميل المصحف'
                 });
             }
+        } finally {
+            if (loader) loader.style.display = 'none';
         }
-        finally {
-             loader.style.display = 'none';
-        }
-        
-        
-        
     }
+    
+    
+    
+    
 
     function syncDropdowns(pageNum) {
         let j = 1; for(let p of juzStartPages) { if(pageNum>=p) j=p; else break; }
