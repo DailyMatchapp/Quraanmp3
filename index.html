@@ -375,8 +375,36 @@
         .progress-bar-bg { flex: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; position: relative; }
         .progress-fill { height: 100%; background: var(--primary); border-radius: 4px; width: 0%; box-shadow: 0 0 10px var(--primary-glow); }
         .track-info { width: 80%; display: flex; flex-direction: row; justify-content: center; margin-bottom: 8px; gap: 5px 10px; }
-        .track-title { font-weight: 800; font-size: 0.95rem; white-space: nowrap; overflow: hidden;  color: var(--text-main); }
-        .track-artist { font-size: 0.90rem; color: var(--primary); white-space: nowrap; overflow: hidden;  }
+      
+      
+        .track-title { 
+            font-weight: 800; 
+            font-size: 0.95rem; 
+            white-space: nowrap; 
+            overflow: hidden;  
+            color: var(--text-main); 
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .track-title:hover {
+            color: var(--primary);
+            
+        }
+
+        .track-artist { 
+            font-size: 0.90rem; 
+            color: var(--primary); 
+            white-space: nowrap; 
+            overflow: hidden; 
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .track-artist:hover {
+            color: #ffffff;
+            
+        }
+        
+        
         .info-separator {
     color: var(--border);
     font-size: 1rem;
@@ -1425,7 +1453,7 @@ body.azkar-active #playerMushafBtn,
 
 
 <!-- 4. بطاقة الدعم والتبرع  -->
-<a href="https://www.buymeacoffee.com/dailymatch1" target="_blank" class="sidebar-action-card coffee" title="ادعمنا وتبرع لتطوير المنصة"> <div class="action-card-icon"> <i class="fas fa-mug-hot"></i> </div> <div class="action-card-info"> <span class="action-card-title">تبرع لدعم المنصة</span> <span class="action-card-desc">ساهم في استمرار وتطوير العمل</span> </div> <i class="fas fa-chevron-left action-card-arrow"></i> </a>
+<a href="https://www.buymeacoffee.com/dailymatch1" target="_blank" class="sidebar-action-card coffee" title="ادعمنا وتبرع لتطوير المنصة"> <div class="action-card-icon"> <i class="fas fa-mug-hot"></i> </div> <div class="action-card-info"> <span class="action-card-title">تبرع لدعم المنصة</span> <span class="action-card-desc">ساهم في  تطوير العمل</span> </div> <i class="fas fa-chevron-left action-card-arrow"></i> </a>
 
 
 
@@ -1728,10 +1756,11 @@ body.azkar-active #playerMushafBtn,
     
     <div class="player-inner-container">
         <!-- معلومات الملف -->
+       
         <div class="track-info">
-            <div class="track-title" id="pTitle">--</div>
+            <div class="track-title" id="pTitle" onclick="goToCurrentSurahOrMedia()" title="انقر للانتقال للسورة / المقطع المشغل">--</div>
             <span class="info-separator">•</span>
-            <div class="track-artist" id="pArtist">--</div>
+            <div class="track-artist" id="pArtist" onclick="goToCurrentReciter()" title="انقر للانتقال للقارئ المشغل">--</div>
         </div>
 
         <div class="controls-area">
@@ -3020,15 +3049,21 @@ function renderAppError(containerId, options = {}) {
     list.forEach(r => {
         const d = document.createElement('div'); 
         d.className = 'card'; 
+        d.setAttribute('data-reciter-id', r.id);
+
         const isF = isFav('reciters', r.id) ? 'active' : '';
-        // إضافة زر القلب
         const heart = `<div class="fav-btn-card ${isF}" onclick='toggleFav(event, "reciters", ${JSON.stringify(r)})'><i class="fas fa-heart"></i></div>`;
         
-        d.innerHTML = `${heart}<h3>${r.name}</h3><p>${r.moshaf[0].name}</p>`;
+        d.innerHTML = `${heart}<h3>${r.name}</h3><p>${r.moshaf[0].name}</p><div class="playing-indicator"></div>`;
         d.onclick = () => openReciter(r); 
         grid.appendChild(d);
     });
-      applyScrollReveal(); 
+
+    // تمييز القارئ إذا كان قيد التشغيل حالياً
+    if (state.currentReciter && !state.isRadioMode && !state.isAzkarMode) {
+        highlightActiveReciterCard(state.currentReciter.id);
+    }
+    applyScrollReveal(); 
 }
 
    function openReciter(r) {
@@ -3062,17 +3097,21 @@ function renderAppError(containerId, options = {}) {
     grid.innerHTML = '';
     
     // عرض السور
-    state.playlist.forEach((id, idx) => {
+   state.playlist.forEach((id, idx) => {
         const d = document.createElement('div'); 
         d.className = 'card'; 
-        d.innerHTML = `<h3>${String(id).padStart(2,'0')}. ${SURAH_NAMES[id-1]}</h3>`;
+        d.setAttribute('data-surah-idx', idx);
+        d.innerHTML = `<h3>${String(id).padStart(2,'0')}. ${SURAH_NAMES[id-1]}</h3><div class="playing-indicator"></div>`;
         d.onclick = () => playTrack(idx); 
         grid.appendChild(d);
-       applyScrollReveal();
     });
-    
-    // التمرير للأعلى
-    scrollToTop();
+
+    // إذا كانت سورة هذا القارئ تعمل الآن، قم بتمييزها مباشرة
+    if (state.currentIndex !== -1 && !state.isRadioMode && !state.isAzkarMode) {
+        highlightActiveCard('quranGrid', state.currentIndex);
+    }
+
+    applyScrollReveal();
 }
 
     function resetQuranView() { 
@@ -5343,6 +5382,98 @@ window.addEventListener('online', () => {
         wasPlayingBeforeDisconnect = false;
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+// --- دوال الانتقال الذكي عند النقر على بيانات المشغل ---
+
+// 1. الانتقال للسورة / المحتوى المشغل حالياً
+function goToCurrentSurahOrMedia() {
+    if (state.isRadioMode) {
+        navigate('radio');
+        setTimeout(() => {
+            highlightActiveCard('radioGrid', state.currentIndex);
+            const card = document.querySelector(`[data-radio-idx="${state.currentIndex}"]`);
+            if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
+    } else if (state.isAzkarMode) {
+        navigate('azkar');
+        setTimeout(() => {
+            highlightActiveCard('azkarGrid', state.currentIndex);
+            const card = document.querySelector(`[data-azkar-idx="${state.currentIndex}"]`);
+            if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
+    } else if (state.currentReciter && state.currentIndex !== -1) {
+        // إذا كنا داخل قائمة سور القارئ بالفعل، مرر إليها فوراً
+        if (state.currentView === 'surahs') {
+            highlightActiveCard('quranGrid', state.currentIndex);
+            const card = document.querySelector(`[data-surah-idx="${state.currentIndex}"]`);
+            if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            // فتح واجهة سور القارئ ثم التمرير للسورة وتمييزها
+            openReciter(state.currentReciter);
+            setTimeout(() => {
+                highlightActiveCard('quranGrid', state.currentIndex);
+                const card = document.querySelector(`[data-surah-idx="${state.currentIndex}"]`);
+                if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 200);
+        }
+    }
+}
+
+// 2. الانتقال للقارئ المشغل حالياً في قائمة القراء
+function goToCurrentReciter() {
+    if (state.isRadioMode) {
+        navigate('radio');
+    } else if (state.isAzkarMode) {
+        navigate('azkar');
+    } else if (state.currentReciter) {
+        navigate('quran');
+        resetQuranView(); // فتح قائمة القراء
+        setTimeout(() => {
+            highlightActiveReciterCard(state.currentReciter.id);
+            const card = document.querySelector(`[data-reciter-id="${state.currentReciter.id}"]`);
+            if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 200);
+    }
+}
+
+// دالة مساعدة لتمييز بطاقة القارئ في قائمة القراء
+function highlightActiveReciterCard(reciterId) {
+    document.querySelectorAll('#quranGrid .card').forEach(c => {
+        c.classList.remove('active-track', 'playing-state');
+        const indicator = c.querySelector('.playing-indicator');
+        if (indicator) indicator.innerHTML = '';
+    });
+
+    const activeCard = document.querySelector(`[data-reciter-id="${reciterId}"]`);
+    if (activeCard) {
+        activeCard.classList.add('active-track');
+        if (state.isPlaying) activeCard.classList.add('playing-state');
+        const indicator = activeCard.querySelector('.playing-indicator');
+        if (indicator) {
+            indicator.innerHTML = `
+                <i class="fa-solid fa-play"></i>
+                <div class="eq-bars">
+                    <div class="playing-bar"></div>
+                    <div class="playing-bar"></div>
+                    <div class="playing-bar"></div>
+                </div>`;
+        }
+    }
+}
+
+
+
     </script>
 </body>
 </html>
