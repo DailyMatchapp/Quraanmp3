@@ -9,11 +9,6 @@
     <!-- الخطوط والأيقونات -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- خط مزخرف ملكي للعنوان -->
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Aref+Ruqaa+Ink:wght@700&family=Reem+Kufi:wght@700&display=swap" rel="stylesheet">
-    
-    
     <!-- مكتبة تقليب الصفحات -->
     <script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js"></script>
     <!-- Privacy-friendly analytics by Plausible -->
@@ -39,6 +34,18 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+
+       html{
+             -webkit-user-select: none;
+     /* Safari */
+             -moz-user-select: none;   
+     /* Firefox */
+             -ms-user-select: none;    
+     /* Internet Explorer/Edge */
+             user-select: none;   
+       }
+
+
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
         
        body { 
@@ -49,6 +56,8 @@
             overflow-x: hidden;
             display: flex; 
             position: relative;
+             -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
 
         /* --- خلفية متحركة --- */
@@ -158,22 +167,6 @@
             background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(30, 41, 59, 0.5) 100%);
             border-color: rgba(56, 189, 248, 0.25);
         }
-        
-        
-        /* زر التبرع والدعم */
-.sidebar-action-card.coffee {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.14) 0%, rgba(30, 41, 59, 0.5) 100%);
-    border-color: rgba(245, 158, 11, 0.25);
-}
-
-.coffee .action-card-icon {
-    background: rgba(245, 158, 11, 0.2);
-    color: #f59e0b; 
-   }
-        
-        
-        
-        
         .sidebar-action-card:hover, .sidebar-action-card:active {
             transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
@@ -1108,7 +1101,7 @@ body.azkar-active #playerMushafBtn,
       
       
       
-      
+      /* زر التبرع والدعم */ .sidebar-action-card.coffee { background: linear-gradient(135deg, rgba(245, 158, 11, 0.14) 0%, rgba(30, 41, 59, 0.5) 100%); border-color: rgba(245, 158, 11, 0.25); } .coffee .action-card-icon { background: rgba(245, 158, 11, 0.2); color: #f59e0b; } .sidebar-action-card:hover, .sidebar-action-card:active { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
       
       
       
@@ -1243,11 +1236,14 @@ body.azkar-active #playerMushafBtn,
     }
     
     
+    
+    
+    
     /* --- تنسيق مزخرف ملكي لعنوان التطبيق Quran Mp3 --- */
 .sidebar .brand span {
     font-family: 'Cinzel Decorative', 'Aref Ruqaa Ink', 'Amiri', serif !important;
-    font-size: 1.35rem;
-    font-weight: 900;
+    font-size: 1.55rem;
+    font-weight: bold;
     letter-spacing: 1.5px;
     
     /* تدرج لوني ذهبي إسلامي فخم */
@@ -1264,7 +1260,6 @@ body.azkar-active #playerMushafBtn,
     filter: drop-shadow(0 0 12px rgba(254, 240, 138, 0.7));
     transform: scale(1.02);
 }
-    
     
     
     .sidebar .nav-links {
@@ -1298,6 +1293,82 @@ body.azkar-active #playerMushafBtn,
       
       
       
+      
+      
+      
+      
+    /* --- تصميم كرت الخطأ الاحترافي الموحد --- */
+.app-error-state {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px dashed rgba(239, 68, 68, 0.4);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    margin: 25px auto;
+    max-width: 500px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* إلغاء انعكاس النص داخل المصحف ليعود طبيعياً */
+#book .app-error-state {
+    transform: scaleX(-1);
+    direction: rtl;
+}
+
+.app-error-icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+}
+.app-error-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 6px;
+}
+.app-error-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 18px;
+    max-width: 360px;
+}
+.app-error-retry-btn {
+    background: linear-gradient(135deg, rgba(94, 234, 212, 0.2), rgba(94, 234, 212, 0.05));
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 9px 24px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+.app-error-retry-btn:hover {
+    background: var(--primary);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px var(--primary-glow);
+} 
+      
     </style> 
 </head>
 <body>
@@ -1324,14 +1395,15 @@ body.azkar-active #playerMushafBtn,
 
         <!-- قائمة الروابط المرتبة بالكامل -->
         <nav class="nav-links">
-            
-            
-       <div class="sidebar-section-label">  </div>
-                 
             <!-- 1. الرئيسية والمفضلة أولاً -->
-            <div class="nav-item active" onclick="navigate('home')"><i class="fas fa-home"></i>الصفحة الرئيسية</div>
+            <div class="nav-item active" onclick="navigate('home')"><i class="fas fa-home"></i> الرئيسية</div>
             <div class="nav-item" onclick="navigate('favorites')"><i class="fas fa-heart"></i> المفضلة</div>
 
+            <div class="sidebar-section-label">أفضل القراء</div>
+            
+            <!-- 2. الأقسام الإسلامية مرتبة بالترتيب المنطقي -->
+            
+            <div class="nav-item" onclick="navigate('quran')"><i class="fas fa-headphones-alt"></i> القرآن الكريم</div>
             
             
             
@@ -1352,12 +1424,8 @@ body.azkar-active #playerMushafBtn,
 
 
 
-
- <a href="https://www.buymeacoffee.com/dailymatch1" target="_blank" class="sidebar-action-card coffee" title="ادعمنا وتبرع لتطوير المنصة"> <div class="action-card-icon"> <i class="fas fa-mug-hot"></i> </div> <div class="action-card-info"> <span class="action-card-title">تبرع لدعم المنصة</span> <span class="action-card-desc">ساهم في استمرار وتطوير العمل</span> </div> <i class="fas fa-chevron-left action-card-arrow"></i> </a>
-
-
-
-
+<!-- 4. بطاقة الدعم والتبرع  -->
+<a href="https://www.buymeacoffee.com/dailymatch1" target="_blank" class="sidebar-action-card coffee" title="ادعمنا وتبرع لتطوير المنصة"> <div class="action-card-icon"> <i class="fas fa-mug-hot"></i> </div> <div class="action-card-info"> <span class="action-card-title">تبرع لدعم المنصة</span> <span class="action-card-desc">ساهم في استمرار وتطوير العمل</span> </div> <i class="fas fa-chevron-left action-card-arrow"></i> </a>
 
 
 
@@ -1370,17 +1438,7 @@ body.azkar-active #playerMushafBtn,
                 </div>
                 <i class="fas fa-chevron-left action-card-arrow"></i>
             </div>
-            
-            
-            
         </nav>
-        
-        
-        
-        
-        
-        
-        
         
         <!-- فوتر القائمة: السوشيال ميديا والروابط والحقوق -->
         <div class="sidebar-footer">
@@ -2617,6 +2675,36 @@ body.azkar-active #playerMushafBtn,
 
     const audio = document.getElementById('audioElement');
 
+
+
+
+
+// --- دالة عامة لعرض شاشة الخطأ الاحترافية في أي قسم ---
+function renderAppError(containerId, options = {}) {
+    const container = typeof containerId === 'string' ? document.getElementById(containerId) : containerId;
+    if (!container) return;
+
+    const {
+        icon = 'fa-triangle-exclamation',
+        title = 'تعذر الاتصال بالخادم',
+        desc = 'يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.',
+        retryFn = null,
+        btnText = 'إعادة المحاولة'
+    } = options;
+
+    container.innerHTML = `
+        <div class="app-error-state">
+            <div class="app-error-icon"><i class="fas ${icon}"></i></div>
+            <h4 class="app-error-title">${title}</h4>
+            <p class="app-error-desc">${desc}</p>
+            ${retryFn ? `<button class="app-error-retry-btn" onclick="${retryFn}"><i class="fas fa-rotate-right"></i> ${btnText}</button>` : ''}
+        </div>
+    `;
+}
+
+
+
+
     // === Initialization ===
     window.onload = () => {
         document.getElementById('playerDock').style.display = 'none';
@@ -2643,6 +2731,10 @@ body.azkar-active #playerMushafBtn,
         };
         localStorage.setItem('atheer_player_state', JSON.stringify(stateToSave));
     }
+    
+    
+    
+    
 
   async function restorePlayerState() {
     const saved = localStorage.getItem('atheer_player_state');
@@ -2687,25 +2779,22 @@ body.azkar-active #playerMushafBtn,
         state.isPlaying = false;
         
         const restoreBtn = document.querySelector('.restore-player-btn');
-        restoreBtn.style.display = 'flex';
-        restoreBtn.classList.remove('playing');
-        restoreBtn.style.transform = 'scale(1)'; 
-        
-        restoreBtn.onclick = function() {
-            activatePlayerUI(); 
-            
-            if (state.isRadioMode && data.radioData) {
-                 audio.src = data.radioData.url;
-                 playRadio(state.currentIndex);
-            } else if (data.reciter) {
-                const id = state.playlist[state.currentIndex];
-                audio.src = `${state.currentReciter.moshaf[0].server}${String(id).padStart(3,'0')}.mp3`;
-                audio.currentTime = data.currentTime || 0;
-                togglePlayState(); 
-            }
-            
-            this.onclick = restorePlayer;
-        };
+        if (restoreBtn) {
+            restoreBtn.style.display = 'flex';
+            restoreBtn.classList.remove('playing');
+            restoreBtn.style.transform = 'scale(1)'; 
+            // جعل الزر يقوم بالتكبير فقط دائماً دون أي إعادة تشغيل
+            restoreBtn.onclick = restorePlayer;
+        }
+
+        // تجهيز الرابط والوقت مسبقاً بهدوء دون تشغيل
+        if (data.reciter && state.playlist && state.playlist.length > state.currentIndex) {
+            const id = state.playlist[state.currentIndex];
+            audio.src = `${state.currentReciter.moshaf[0].server}${String(id).padStart(3,'0')}.mp3`;
+            audio.currentTime = data.currentTime || 0;
+        } else if (state.isRadioMode && data.radioData) {
+            audio.src = data.radioData.url;
+        }
 
     } catch (e) { console.error("Error restoring state:", e); }
 }
@@ -2901,18 +2990,28 @@ body.azkar-active #playerMushafBtn,
 
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-    // === Quran Logic ===
-   async function initReciters() {
+
+
+
+
+    async function initReciters() {
+        const grid = document.getElementById('quranGrid');
         try { 
             const res = await fetch(API_RECITERS); 
+            if (!res.ok) throw new Error("تعذر جلب قائمة القراء");
             const data = await res.json(); 
             
-            // --- التعديل هنا: الترتيب الأبجدي ---
             state.reciters = data.reciters.sort((a, b) => a.name.localeCompare(b.name, 'ar')); 
-            // -----------------------------------
-
             renderReciters(state.reciters); 
-        } catch(e){ console.error(e); }
+        } catch(e){ 
+            console.error(e);
+            renderAppError('quranGrid', {
+                title: 'تعذر تحميل قائمة القراء',
+                desc: 'حدث خطأ أثناء مزامنة سيرفرات القرآن الكريم، تحقق من اتصالك.',
+                retryFn: 'initReciters()',
+                btnText: 'تحديث القائمة'
+            });
+        }
     }
 
    function renderReciters(list) {
@@ -3094,6 +3193,10 @@ body.azkar-active #playerMushafBtn,
         state.hadithTotalLoaded += nextBatch.length;
     }
 
+
+
+
+
     async function loadMoreHadiths() {
         if (state.hadithLoading) return;
         state.hadithLoading = true; 
@@ -3136,17 +3239,20 @@ body.azkar-active #playerMushafBtn,
             // 2. عرض أول دفعة
             renderMoreHadithsBatch();
 
-        } catch (e) { 
+} catch (e) { 
             console.error("Hadith loading error:", e); 
             if (state.hadithTotalLoaded === 0 && grid) {
-                grid.innerHTML = `
-                    <div style="text-align:center; padding:40px; color:#ef4444;">
-                        <i class="fas fa-triangle-exclamation fa-2x"></i>
-                        <p style="margin-top:10px; color:#fff;">تعذر تحميل الأحاديث، يرجى التحقق من اتصال الإنترنت</p>
-                        <button onclick="loadMoreHadiths()" style="background:var(--primary); color:#000; border:none; padding:8px 20px; border-radius:20px; font-weight:bold; cursor:pointer; margin-top:12px;">إعادة المحاولة</button>
-                    </div>`;
+                renderAppError('hadithGrid', {
+                    icon: 'fa-book-bookmark',
+                    title: 'تعذر جلب الأحاديث النبوية',
+                    desc: 'تعذر الاتصال بقاعدة بيانات الحديث، يرجى إعادة المحاولة.',
+                    retryFn: 'loadMoreHadiths()',
+                    btnText: 'محاولة جلب الكتاب مجدداً'
+                });
+            } else {
+                showGlobalToast("⚠️ تعذر جلب المزيد من الأحاديث، تحقق من الشبكة", "error");
             }
-        } finally { 
+        }  finally { 
             state.hadithLoading = false; 
             if (loader) loader.style.display = 'none'; 
         }
@@ -3179,32 +3285,38 @@ body.azkar-active #playerMushafBtn,
 
 
 
-    // === Radio Logic ===
-    async function initRadios() {
+   async function initRadios() {
         if (state.radios.length > 0) return;
         try {
             const res = await fetch(API_RADIOS);
+            if (!res.ok) throw new Error("تعذر جلب قنوات الإذاعة");
             const data = await res.json();
           
-           // --- تعديل لإزالة التكرار بناءً على الاسم ---
-        const uniqueNames = new Set();
-        const filteredRadios = data.radios.filter(radio => {
-            if (!uniqueNames.has(radio.name)) {
-                uniqueNames.add(radio.name);
-                return true;
-            }
-            return false;
-        });
-          
-          
-          
-          
-          
+            const uniqueNames = new Set();
+            const filteredRadios = data.radios.filter(radio => {
+                if (!uniqueNames.has(radio.name)) {
+                    uniqueNames.add(radio.name);
+                    return true;
+                }
+                return false;
+            });
           
             state.radios = filteredRadios.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
-        renderRadios(state.radios);
-    } catch (e) { console.error("Error loading radios:", e); }
-}
+            renderRadios(state.radios);
+        } catch (e) { 
+            console.error("Error loading radios:", e); 
+            renderAppError('radioGrid', {
+                icon: 'fa-radio',
+                title: 'تعذر بث الإذاعات المباشرة',
+                desc: 'تعذر الوصول إلى سيرفر الإذاعات حالياً، يرجى المحاولة لاحقاً.',
+                retryFn: 'initRadios()',
+                btnText: 'إعادة الاتصال'
+            });
+        }
+    }
+
+
+
   function renderRadios(list) {
     const grid = document.getElementById('radioGrid');
     grid.innerHTML = '';
@@ -3600,9 +3712,14 @@ function updatePlayerUI() {
     }
 
     function restorePlayer() { 
-        document.getElementById('playerDock').classList.remove('minimized'); 
+        const dock = document.getElementById('playerDock');
+        if (dock) {
+            dock.style.display = 'flex';
+            dock.classList.remove('minimized'); 
+        }
         document.body.classList.remove('player-minimized'); 
     }
+    
     
     function setVolume(val) {
     // 1. تحديث مستوى صوت المشغل
@@ -3678,6 +3795,24 @@ function updatePlayerUI() {
     audio.addEventListener('waiting', () => setPlayerLoading(true));
     audio.addEventListener('playing', () => { setPlayerLoading(false); state.isPlaying = true; updatePlayerUI(); });
     audio.addEventListener('pause', () => { setPlayerLoading(false); state.isPlaying = false; updatePlayerUI(); });
+    
+    
+    
+    // --- مراقبة أخطاء مشغل الصوت التلقائية (انقطاع الرابط أو فشل التحميل) ---
+audio.addEventListener('error', (e) => {
+    setPlayerLoading(false);
+    state.isPlaying = false;
+    updatePlayerUI();
+    
+    if (state.isRadioMode) {
+        const currTime = document.getElementById('currTime');
+        if (currTime) currTime.innerHTML = '<span style="color:#ef4444;">⚠️ تعذر تشغيل الإذاعة</span>';
+        showGlobalToast("⚠️ تعذر تشغيل هذا البث المباشر حالياً", "error");
+    } else {
+        showGlobalToast("⚠️ تعذر تشغيل المقطع الصوتي، يرجى المحاولة لاحقاً", "error");
+    }
+});
+    
 
     function setPlayerLoading(isLoading) {
         const playBtn = document.getElementById('playBtn');
@@ -3822,6 +3957,9 @@ function updatePlayerUI() {
                 
                 state.pageFlipInstance.on('flip', (e) => { 
                     syncDropdowns(e.data); 
+           
+           
+           
                     localStorage.setItem('last_quran_page', e.data); 
                 });
                 
@@ -3829,10 +3967,27 @@ function updatePlayerUI() {
                 const saved = localStorage.getItem('last_quran_page');
                 if(saved) setTimeout(() => { state.pageFlipInstance.flip(parseInt(saved)); }, 500);
             }
-        } catch(e) { console.error(e); }
-        finally {
-             loader.style.display = 'none'; // إخفاء اللودر الرئيسي الكبير
+        
+        
+        } catch(e) { 
+            console.error(e);
+            const bookEl = document.getElementById('book');
+            if (bookEl) {
+                renderAppError(bookEl, {
+                    icon: 'fa-book-quran',
+                    title: 'تعذر تحميل صفحات المصحف الشريف',
+                    desc: ' تفقد اتصالك الإنترنت.',
+                    retryFn: 'loadMushafBook()',
+                    btnText: 'إعادة تحميل المصحف'
+                });
+            }
         }
+        finally {
+             loader.style.display = 'none';
+        }
+        
+        
+        
     }
 
     function syncDropdowns(pageNum) {
@@ -4427,16 +4582,15 @@ function updatePlayerUI() {
             } else {
                 throw new Error("بيانات غير صالحة");
             }
-        } catch (e) {
+          } catch (e) {
             console.error("Error fetching prayers:", e);
-            if(grid) {
-                grid.innerHTML = `
-                    <div style="text-align:center; padding:30px; grid-column:1/-1; color:#ef4444;">
-                        <i class="fas fa-exclamation-triangle fa-2x"></i>
-                        <p style="margin-top:10px; color:#fff;">تعذر جلب المواقيت، يرجى إعادة المحاولة</p>
-                        <button onclick="getPrayerTimes(false)" style="background:var(--primary); color:#000; border:none; padding:7px 18px; border-radius:15px; font-weight:bold; cursor:pointer; margin-top:10px;">إعادة المحاولة</button>
-                    </div>`;
-            }
+            renderAppError('prayerGrid', {
+                icon: 'fa-mosque',
+                title: 'تعذر حساب مواقيت الصلاة',
+                desc: 'يرجى التأكد من اختيار الدولة والمدينة والاتصال بالإنترنت.',
+                retryFn: 'getPrayerTimes(false)',
+                btnText: 'تحديث المواقيت'
+            });
         }
     }
 
@@ -4607,15 +4761,21 @@ async function initAsma() {
         } else {
             throw new Error(data.message || "فشل التحميل");
         }
-    } catch (e) {
+             
+     } catch (e) {
         console.error(e);
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#ef4444;">
-                            <i class="fas fa-exclamation-triangle fa-2x"></i><br><br>
-                            حدث خطأ في جلب الأسماء. يرجى التحقق من اتصال الإنترنت.<br>
-                            <small>${e.message}</small>
-                          </div>`;
-    }
+        renderAppError('asmaGrid', {
+            icon: 'fa-star-and-crescent',
+            title: 'تعذر جلب أسماء الله الحسنى',
+            desc: 'حدث خطأ في تحميل البيانات  الصوتية.',
+            retryFn: 'initAsma()',
+            btnText: 'إعادة المحاولة'
+        });
+    }        
+    
 }
+
+
 
 function renderAsmaGrid(names) {
     const grid = document.getElementById('asmaGrid');
