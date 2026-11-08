@@ -3460,6 +3460,11 @@ function renderAppError(containerId, options = {}) {
         scrollToTop(); 
     }
 
+
+
+
+
+
     // دالة عرض دفعة أحاديث من الذاكرة فوراً وبدون أي بطء (0 ثانية)
     function renderMoreHadithsBatch() {
         if (!state.currentHadithsList || state.currentHadithsList.length === 0) return;
@@ -3484,7 +3489,16 @@ function renderAppError(containerId, options = {}) {
             const isF = isFav('hadiths', hadithText) ? 'active' : '';
             
             d.innerHTML = `
-                <div class="fav-btn-card ${isF}" onclick='toggleFav(event, "hadiths", {number:${hadithNumber}, text:${JSON.stringify(hadithText)}})'><i class="fas fa-heart"></i></div>
+                <!-- أزرار الإجراءات في الجانب الأيسر -->
+                <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 8px; z-index: 10;">
+                    <div class="fav-btn-card" style="position: static;" title="نسخ الحديث" onclick='copyHadithText(event, ${JSON.stringify(hadithText)}, ${hadithNumber})'>
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <div class="fav-btn-card ${isF}" style="position: static;" title="إضافة للمفضلة" onclick='toggleFav(event, "hadiths", {number:${hadithNumber}, text:${JSON.stringify(hadithText)}})'>
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
+                
                 <div style="color:var(--primary); margin-bottom:15px; font-weight:bold; font-size:1.1rem; display:flex; justify-content:space-between; padding-top:10px;">
                     <span><i class="fas fa-bookmark"></i> حديث رقم ${hadithNumber}</span>
                 </div>
@@ -5319,9 +5333,15 @@ function renderFavoritesGrid() {
         }
         else if (currentFavTab === 'hadith') {
             d.style.cursor = 'default';
-            const heartBtn = `<div class="fav-btn-card active" onclick='toggleFav(event, "hadiths", {number:${item.number}, text:${JSON.stringify(item.text)}})'><i class="fas fa-heart"></i></div>`;
-            d.innerHTML = `${heartBtn}
-                <div style="color:var(--primary); margin-bottom:15px; font-weight:bold; font-size:1.1rem;">
+            const heartBtn = `<div class="fav-btn-card active" style="position: static;" onclick='toggleFav(event, "hadiths", {number:${item.number}, text:${JSON.stringify(item.text)}})'><i class="fas fa-heart"></i></div>`;
+            const copyBtn = `<div class="fav-btn-card" style="position: static;" title="نسخ الحديث" onclick='copyHadithText(event, ${JSON.stringify(item.text)}, ${item.number})'><i class="fas fa-copy"></i></div>`;
+            
+            d.innerHTML = `
+                <div style="position: absolute; top: 10px; left: 10px; display: flex; gap: 8px; z-index: 10;">
+                    ${copyBtn}
+                    ${heartBtn}
+                </div>
+                <div style="color:var(--primary); margin-bottom:15px; font-weight:bold; font-size:1.1rem; padding-top:10px;">
                     <span><i class="fas fa-bookmark"></i> حديث رقم ${item.number}</span>
                 </div>
                 <div class="hadith-text" style="text-align: justify; padding: 0 10px;">${item.text}</div>`;
@@ -5766,5 +5786,45 @@ function highlightActiveReciterCard(reciterId) {
 
 
     </script>
+    
+    
+    
+    
+    <script>
+        
+       // دالة نسخ نص الحديث إلى الحافظة
+function copyHadithText(e, text, hadithNum) {
+    e.stopPropagation();
+    const btn = e.currentTarget;
+    const fullText = (hadithNum ? `حديث رقم ${hadithNum}:\n` : '') + text;
+
+    navigator.clipboard.writeText(fullText).then(() => {
+        // تغيير أيقونة الزر مؤقتاً للتأكيد
+        const icon = btn.querySelector('i');
+        const oldClass = icon.className;
+        icon.className = 'fas fa-check';
+        btn.style.color = '#10b981';
+
+        showGlobalToast("✅ تم نسخ الحديث بنجاح", "success");
+
+        setTimeout(() => {
+            icon.className = oldClass;
+            btn.style.color = '';
+        }, 1800);
+    }).catch(() => {
+        // بديل للهواتف القديمة في حال عدم دعم clipboard API
+        const textarea = document.createElement('textarea');
+        textarea.value = fullText;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showGlobalToast("✅ تم نسخ الحديث بنجاح", "success");
+    });
+} 
+        
+    </script>
+    
+    
 </body>
 </html>
